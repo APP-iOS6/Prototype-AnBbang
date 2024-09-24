@@ -141,7 +141,7 @@ struct ResidenceDetail: View {
             
             VStack {
                 NavigationLink {
-                    ResidenceInfo()
+                    ResidenceInfoView()
                 } label: {
                     VStack(alignment: .leading) {
                         Text("월세 300/30")

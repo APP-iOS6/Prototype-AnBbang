@@ -24,5 +24,5 @@ struct RoomImagesView: View {
 }
 
 #Preview {
-    ResidenceInfo()
+    ResidenceInfoView()
 }
