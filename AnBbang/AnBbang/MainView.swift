@@ -25,6 +25,7 @@ struct MainView: View {
             }
             
             Tab("더보기", systemImage: "square.split.2x2.fill") {
+                MoreView()
             }
         }
         .tint(.yellow)
