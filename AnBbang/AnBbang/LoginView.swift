@@ -38,7 +38,7 @@ struct LoginView: View {
                 .padding(.bottom, 30)
                 
                 // 카카오 로그인 버튼
-                NavigationLink(destination: MainView()) {
+                NavigationLink(destination: NotificationPromptView()) {
                     HStack {
                         Image("kakaoLogo")
                             .resizable()
@@ -56,7 +56,7 @@ struct LoginView: View {
                 .padding(.horizontal, 30)
                 
                 // Google 로그인 버튼
-                NavigationLink(destination: MainView()) {
+                NavigationLink(destination: NotificationPromptView()) {
                     HStack {
                         Image("googleLogo")
                             .resizable()
@@ -78,9 +78,7 @@ struct LoginView: View {
                 
                 
                 // Apple 로그인 버튼
-                Button(action: {
-                    
-                }) {
+                NavigationLink(destination: NotificationPromptView()) {
                     HStack {
                         Image(systemName: "applelogo")
                             .resizable()
@@ -99,7 +97,7 @@ struct LoginView: View {
                 
                 
                 // Facebook 로그인 버튼
-                NavigationLink(destination: MainView()) {
+                NavigationLink(destination: NotificationPromptView()) {
                     HStack {
                         Image("facebookLogo")
                             .resizable()
@@ -123,7 +121,7 @@ struct LoginView: View {
                 Spacer()
                 
                 // 이메일로 로그인 링크
-                NavigationLink(destination: MainView()) {
+                NavigationLink(destination: NotificationPromptView()) {
                     Text("이메일로 로그인하기")
                         .font(.system(size: 14))
                         .foregroundColor(.gray)
@@ -139,4 +137,3 @@ struct LoginView: View {
 #Preview {
     LoginView()
 }
-
