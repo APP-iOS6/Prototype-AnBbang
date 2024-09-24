@@ -22,6 +22,7 @@ struct MainView: View {
             }
             
             Tab("관심목록", systemImage: "heart.circle.fill") {
+                FavoritesView()  // 관심목록 탭에 연결
             }
             
             Tab("더보기", systemImage: "square.split.2x2.fill") {
@@ -39,7 +40,7 @@ struct HomeView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 365, height: 70, alignment: .leading)
-                    
+                
                 Spacer()
                     .frame(height: 50)
                 
@@ -50,7 +51,7 @@ struct HomeView: View {
                         } label: {
                             ResidenceCell(residence: Residence.apartment.rawValue, image: "house.circle.fill")
                         }
-
+                        
                         NavigationLink {
                             
                         } label: {
@@ -112,6 +113,13 @@ struct ResidenceCell: View {
                 .stroke(lineWidth: 1)
                 .foregroundStyle(.gray)
         }
+    }
+}
+
+// 관심 목록 탭 뷰
+struct FavoritesView: View {
+    var body: some View {
+        LikelistView()
     }
 }
 
