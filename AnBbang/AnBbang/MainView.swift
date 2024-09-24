@@ -29,35 +29,36 @@ struct MainView: View {
                 MoreView()
             }
         }
-        .tint(.yellow)
+        .tint(.accent)
         .navigationBarBackButtonHidden()
     }
 }
 
 struct HomeView: View {
+    @Bindable var residenceStore: ResidenceStore = ResidenceStore()
     var body: some View {
         NavigationStack {
             VStack {
-                Image("Logo")
+                Image("anbbangLogo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 365, height: 70, alignment: .leading)
                 
                 Spacer()
-                    .frame(height: 50)
+                    .frame(height: 30)
                 
                 Grid {
                     GridRow {
                         NavigationLink {
                             EstateMapView()
                         } label: {
-                            ResidenceCell(residence: Residence.gositel.rawValue, image: "house.circle.fill")
+                            ResidenceCell(residence: Residence.gositel.rawValue, image: "bed.double.fill")
                         }
                         
                         NavigationLink {
                             EstateMapView()
                         } label: {
-                            ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.circle.fill")
+                            ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.fill")
                         }
                     }
                     
@@ -65,13 +66,13 @@ struct HomeView: View {
                         NavigationLink {
                             EstateMapView()
                         } label: {
-                            ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "house.lodge.circle.fill")
+                            ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "building.2.fill")
                         }
                         
                         NavigationLink {
                             EstateMapView()
                         } label: {
-                            ResidenceCell(residence: Residence.officetel.rawValue, image: "house.circle.fill")
+                            ResidenceCell(residence: Residence.officetel.rawValue, image: "building.columns.fill")
                         }
                     }
                 }
@@ -81,9 +82,9 @@ struct HomeView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ResidenceDetail()
-                        ResidenceDetail()
-                        ResidenceDetail()
+                        ForEach(ResidenceStore.residences, id: \.id) { residence in
+                            ResidenceDetail(residence: residence)
+                        }
                     }
                 }
                 
@@ -108,12 +109,13 @@ struct ResidenceCell: View {
                 .frame(minWidth: 175, minHeight: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .font(.headline)
-                .foregroundStyle(.primary)
+                .foregroundStyle(.accent)
         }
         .overlay {
             RoundedRectangle(cornerRadius: 5)
                 .stroke(lineWidth: 1)
                 .foregroundStyle(.gray)
+                .frame(minHeight: 100)
         }
     }
 }
@@ -126,13 +128,14 @@ struct FavoritesView: View {
 }
 
 struct ResidenceDetail: View {
+    var residence: ResidenceInfo
     @State private var isFavorites: Bool = false
     @State private var heartImageName: String = "suit.heart"
     
     var body: some View {
         VStack {
             ZStack(alignment: .topTrailing) {
-                Image("TempRoom")
+                Image(residence.images[0])
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(alignment: .leading)
@@ -151,16 +154,14 @@ struct ResidenceDetail: View {
             
             VStack {
                 NavigationLink {
-                    ResidenceInfoView()
+                    ResidenceInfoView(residence: residence)
                 } label: {
                     VStack(alignment: .leading) {
-                        Text("월세 300/30")
+                        Text(residence.quickInfo.monthlyRent)
                             .background(Color.white)
-                        Text("원룸")
+                        Text(residence.residenceType)
                             .font(.caption)
-                        Text("고층, 10.15m², 관리비 7만원")
-                            .font(.caption)
-                        Text("Detail...")
+                        Text(residence.subInfo)
                             .font(.caption)
                     }
                     .frame(width: 130)
