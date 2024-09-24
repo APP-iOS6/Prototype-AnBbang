@@ -24,8 +24,8 @@ struct MoreView: View {
                                 Image(systemName: "person.circle") // 프로필 아이콘
                                     .font(.largeTitle)
                                     .foregroundColor(.black)
-                                Text("구아바") // 로그인된 사용자 닉네임
-                                    .font(.title)
+                                Text("선녀의방") // 로그인된 사용자 닉네임
+                                    .font(.title3)
                                     .foregroundColor(.black)
                                 
                                 Spacer()
@@ -49,11 +49,18 @@ struct MoreView: View {
                     HStack {
                         NavigationLink(destination: InquiryView()) {
                             VStack {
+                                Spacer()
+                                
                                 Image(systemName: "magnifyingglass.circle")
                                     .font(.largeTitle)
-                                    .padding()
+                                
+                                Spacer()
+                                    .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
+                                
                                 Text("문의한 방")
                                     .foregroundColor(.black)
+                                
+                                Spacer()
                             }
                         }
                         
@@ -63,7 +70,10 @@ struct MoreView: View {
                             VStack {
                                 Image(systemName: "sharedwithyou.circle")
                                     .font(.largeTitle)
-                                    .padding()
+                                
+                                Spacer()
+                                    .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
+                                
                                 Text("내가 쓴 이야기")
                                     .foregroundColor(.black)
                             }
@@ -75,7 +85,10 @@ struct MoreView: View {
                             VStack {
                                 Image(systemName: "info.circle")
                                     .font(.largeTitle)
-                                    .padding()
+                                
+                                Spacer()
+                                    .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
+                                
                                 Text("고객센터")
                                     .foregroundColor(.black)
                             }
@@ -84,6 +97,8 @@ struct MoreView: View {
                     .padding(.horizontal)
                     
                     Divider() // 구분선
+                    
+                    Spacer()
                     
                     // 리스트 항목들 (왼쪽 정렬)
                     VStack(alignment: .leading) {
@@ -95,7 +110,7 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical)
+                        .padding(.vertical, 8)
                         
                         NavigationLink(destination: ReportView()) {
                             HStack {
@@ -105,7 +120,7 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical)
+                        .padding(.vertical, 8)
                         
                         NavigationLink(destination: EventView()) {
                             HStack {
@@ -115,7 +130,7 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical)
+                        .padding(.vertical, 8)
                         
                         NavigationLink(destination: NewsView()) {
                             HStack {
@@ -125,9 +140,13 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical)
+                        .padding(.vertical, 8)
+                        
+                        Spacer()
+                        Spacer()
                         
                         Divider()
+                        
                         
                         // 현재 앱 버전 정보
                         HStack {
@@ -141,37 +160,45 @@ struct MoreView: View {
                             
                             Text("최신 버전입니다.")
                         }
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
                         .padding(.vertical)
                         
                         Divider()
                         
+                        Spacer()
+                        Spacer()
+                        
                         // 약관 및 회사 소개
-                        NavigationLink(destination: TermsView()) {
-                            HStack {
-                                Text("이용약관")
-                                    .foregroundColor(.gray)
-                                Spacer()
+                        VStack {
+                            NavigationLink(destination: TermsView()) {
+                                HStack {
+                                    Text("이용약관")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
-                        }
-                        .padding(.vertical)
-                        
-                        NavigationLink(destination: PrivacyPolicyView()) {
-                            HStack {
-                                Text("개인정보 처리방침")
-                                    .foregroundColor(.gray)
-                                Spacer()
+                            .padding(.vertical, 3)
+                            
+                            NavigationLink(destination: PrivacyPolicyView()) {
+                                HStack {
+                                    Text("개인정보 처리방침")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
-                        }
-                        .padding(.vertical)
-                        
-                        NavigationLink(destination: CompanyInfoView()) {
-                            HStack {
-                                Text("회사 소개")
-                                    .foregroundColor(.gray)
-                                Spacer()
+                            .padding(.vertical, 3)
+                            
+                            NavigationLink(destination: CompanyInfoView()) {
+                                HStack {
+                                    Text("회사 소개")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
+                            .padding(.vertical, 3)
                         }
-                        .padding(.vertical)
+                        .font(.subheadline)
                     }
                 }
                 .padding()
@@ -189,4 +216,3 @@ struct MoreView: View {
 #Preview {
     MoreView()
 }
-
