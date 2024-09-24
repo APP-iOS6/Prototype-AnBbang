@@ -10,7 +10,7 @@ import Observation
 
 @Observable
 class ResidenceStore: ObservableObject {
-    static var residences: [ResidenceInfo] = [
+    var residences: [ResidenceInfo] = [
         ResidenceInfo(
             images: ["TempRoom", "TempRoom2", "TempRoom3"],
             residenceType: "원룸",
@@ -58,6 +58,7 @@ class ResidenceStore: ObservableObject {
         ResidenceInfo(
             images: ["TempRoom3", "TempRoom", "TempRoom2"],
             residenceType: "원룸",
+            isFavorite: true,
             subInfo: "3층/4층, 30.15m², 관리비 17만원",
             registNumber: "98765432",
             registDate: "2024-09-24",
@@ -100,4 +101,30 @@ class ResidenceStore: ObservableObject {
         )
     ]
     
+    var favoritesResidences: [ResidenceInfo] = []
+    
+    func initFavoritesResidences() {
+        favoritesResidences = residences.filter { $0.isFavorite }
+    }
+    
+    func toggleFavorite(id: UUID) {
+        for index in 0..<residences.count {
+            if residences[index].id == id {
+                residences[index].isFavorite.toggle()
+            }
+        }
+    }
+    
+    func addFavoriteResidence(residence: ResidenceInfo) {
+        favoritesResidences.append(residence)
+    }
+    
+    func subFavoriteResidence(id: UUID) {
+        for index in 0..<favoritesResidences.count {
+            if favoritesResidences[index].id == id {
+                favoritesResidences[index].isFavorite.toggle()
+                favoritesResidences.removeAll { $0.id == id }
+            }
+        }
+    }
 }

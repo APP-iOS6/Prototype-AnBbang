@@ -23,6 +23,6 @@ struct RoomImagesView: View {
     }
 }
 
-#Preview {
-    ResidenceInfoView(residence: ResidenceStore.residences[0])
-}
+//#Preview {
+//    ResidenceInfoView(residence: ResidenceStore().residences[0])
+//}

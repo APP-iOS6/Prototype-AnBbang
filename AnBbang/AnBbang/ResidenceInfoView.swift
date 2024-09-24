@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ResidenceInfoView: View {
+    @EnvironmentObject var residenceStore: ResidenceStore
     var residence: ResidenceInfo
-    let roomImages = ["TempRoom", "TempRoom2", "TempRoom3"]
     @State private var isFavorites: Bool = false
     @State private var isPresented: Bool = false
-    var checkDick: [String: String] = ["1. 계약 전\n 확인하기": "before", "2. 계약 당일\n 준비": "dDay", "3. 계약 후\n 확인하기": "after", "4. 이삿날\n 해야할 일": "move"]
+    var checkDict: [String: String] = ["1. 계약 전\n 확인하기": "before", "2. 계약 당일\n 준비": "dDay", "3. 계약 후\n 확인하기": "after", "4. 이삿날\n 해야할 일": "move"]
     @State private var imageName: String = ""
     
     var body: some View {
@@ -21,10 +21,11 @@ struct ResidenceInfoView: View {
                 RoomImagesView(roomImages: residence.images)
                 
                 Button {
-                    isFavorites.toggle()
+                    residenceStore.toggleFavorite(id: residence.id)
+                    residenceStore.subFavoriteResidence(id: residence.id)
                 } label: {
-                    Image(systemName: isFavorites ? "heart.fill" : "heart")
-                        .foregroundStyle(isFavorites ? .red : .white)
+                    Image(systemName: residence.isFavorite ? "heart.fill" : "heart")
+                        .foregroundStyle(residence.isFavorite ? .red : .white)
                 }
                 .padding(.trailing, 20)
             }
@@ -150,7 +151,7 @@ struct ResidenceInfoView: View {
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 10) {
-                        ForEach(checkDick.sorted(by: <), id: \.key) { key, value in
+                        ForEach(checkDict.sorted(by: <), id: \.key) { key, value in
                             Button {
                                 switch value {
                                 case "before":
@@ -224,5 +225,6 @@ struct CheckView: View {
 }
 
 #Preview {
-    ResidenceInfoView(residence: ResidenceStore.residences[0])
+    MainView()
+        .environment(ResidenceStore())
 }

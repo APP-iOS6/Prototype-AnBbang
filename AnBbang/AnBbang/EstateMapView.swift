@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import Observation
 
 struct EstateMapView: View {
+    @Bindable var residenceStore: ResidenceStore
     @State private var currScale: CGFloat = 0.0
     @State private var scale: CGFloat = 0.4
     @State private var shouldShowHomeList: Bool = true
@@ -158,5 +160,5 @@ struct EstateMapView: View {
 }
 
 #Preview {
-    EstateMapView()
+    EstateMapView(residenceStore: ResidenceStore())
 }

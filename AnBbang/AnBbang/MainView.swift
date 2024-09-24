@@ -15,6 +15,8 @@ enum Residence: String {
 }
 
 struct MainView: View {
+    @EnvironmentObject var residenceStore: ResidenceStore
+    
     var body: some View {
         TabView {
             Tab("홈", systemImage: "house.circle.fill") {
@@ -22,7 +24,7 @@ struct MainView: View {
             }
             
             Tab("관심목록", systemImage: "heart.circle.fill") {
-                FavoritesView()  // 관심목록 탭에 연결
+                LikelistView()// 관심목록 탭에 연결
             }
             
             Tab("더보기", systemImage: "square.split.2x2.fill") {
@@ -31,11 +33,14 @@ struct MainView: View {
         }
         .tint(.accent)
         .navigationBarBackButtonHidden()
+        .onAppear {
+            residenceStore.initFavoritesResidences()
+        }
     }
 }
 
 struct HomeView: View {
-    @Bindable var residenceStore: ResidenceStore = ResidenceStore()
+    @EnvironmentObject var residenceStore: ResidenceStore
     var body: some View {
         NavigationStack {
             VStack {
@@ -50,13 +55,13 @@ struct HomeView: View {
                 Grid {
                     GridRow {
                         NavigationLink {
-                            EstateMapView()
+                            EstateMapView(residenceStore: residenceStore)
                         } label: {
                             ResidenceCell(residence: Residence.gositel.rawValue, image: "bed.double.fill")
                         }
                         
                         NavigationLink {
-                            EstateMapView()
+                            EstateMapView(residenceStore: residenceStore)
                         } label: {
                             ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.fill")
                         }
@@ -64,13 +69,13 @@ struct HomeView: View {
                     
                     GridRow {
                         NavigationLink {
-                            EstateMapView()
+                            EstateMapView(residenceStore: residenceStore)
                         } label: {
                             ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "building.2.fill")
                         }
                         
                         NavigationLink {
-                            EstateMapView()
+                            EstateMapView(residenceStore: residenceStore)
                         } label: {
                             ResidenceCell(residence: Residence.officetel.rawValue, image: "building.columns.fill")
                         }
@@ -82,8 +87,8 @@ struct HomeView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(ResidenceStore.residences, id: \.id) { residence in
-                            ResidenceDetail(residence: residence)
+                        ForEach(residenceStore.residences.indices) { index in
+                            ResidenceDetail(residence: $residenceStore.residences[index])
                         }
                     }
                 }
@@ -128,7 +133,8 @@ struct FavoritesView: View {
 }
 
 struct ResidenceDetail: View {
-    var residence: ResidenceInfo
+    @EnvironmentObject var residenceStore: ResidenceStore
+    @Binding var residence: ResidenceInfo
     @State private var isFavorites: Bool = false
     @State private var heartImageName: String = "suit.heart"
     
@@ -141,10 +147,11 @@ struct ResidenceDetail: View {
                     .frame(alignment: .leading)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 Button {
-                    isFavorites.toggle()
+                    residence.isFavorite.toggle()
+                    residenceStore.addFavoriteResidence(residence: residence)
                 } label: {
-                    Image(systemName: isFavorites ? "heart.fill" : "heart")
-                        .foregroundStyle(isFavorites ? .red : .white)
+                    Image(systemName: residence.isFavorite ? "heart.fill" : "heart")
+                        .foregroundStyle(residence.isFavorite ? .red : .white)
                 }
                 .padding(.top, 5)
                 .padding(.trailing, 5)
@@ -174,4 +181,5 @@ struct ResidenceDetail: View {
 
 #Preview {
     MainView()
+        .environment(ResidenceStore())
 }

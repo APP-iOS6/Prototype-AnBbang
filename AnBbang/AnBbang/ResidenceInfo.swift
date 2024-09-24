@@ -11,6 +11,7 @@ struct ResidenceInfo: Identifiable {
     var id: UUID = .init()
     var images: [String]
     var residenceType: String
+    var isFavorite: Bool = false
     var subInfo: String
     var registNumber: String
     var registDate: String
