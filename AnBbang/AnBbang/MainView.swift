@@ -121,7 +121,7 @@ struct ResidenceDetail: View {
     
     var body: some View {
         VStack {
-            ZStack {
+            ZStack(alignment: .topTrailing) {
                 Image("TempRoom")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -129,34 +129,33 @@ struct ResidenceDetail: View {
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 Button {
                     isFavorites.toggle()
-                    
-                    if isFavorites {
-                        heartImageName = "heart.fill"
-                    } else {
-                        heartImageName = "suit.heart"
-                    }
                 } label: {
-                    Image(systemName: heartImageName)
-                        .foregroundStyle(.white)
-                        .frame(width: 120, height: 120, alignment: .topTrailing)
+                    Image(systemName: isFavorites ? "heart.fill" : "heart")
+                        .foregroundStyle(isFavorites ? .red : .white)
                 }
+                .padding(.top, 5)
+                .padding(.trailing, 5)
                 
             }
             .frame(width: 130, height: 130, alignment: .leading)
             
             VStack {
-                Text("월세 300/30")
-                    .background(Color.white)
-                    .frame(width: 130, alignment: .leading)
-                Text("원룸")
-                    .font(.caption)
-                    .frame(width: 130, alignment: .leading)
-                Text("고층, 10.15m², 관리비 7만원")
-                    .font(.caption)
-                    .frame(width: 130, alignment: .leading)
-                Text("Detail...")
-                    .font(.caption)
-                    .frame(width: 130, alignment: .leading)
+                NavigationLink {
+                    ResidenceInfo()
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text("월세 300/30")
+                            .background(Color.white)
+                        Text("원룸")
+                            .font(.caption)
+                        Text("고층, 10.15m², 관리비 7만원")
+                            .font(.caption)
+                        Text("Detail...")
+                            .font(.caption)
+                    }
+                    .frame(width: 130)
+                    .foregroundStyle(.black)
+                }
             }
         }
     }
