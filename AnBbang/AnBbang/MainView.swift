@@ -108,7 +108,7 @@ struct ResidenceCell: View {
                 .frame(minWidth: 175, minHeight: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .font(.headline)
-                .foregroundStyle(.black)
+                .foregroundStyle(.primary)
         }
         .overlay {
             RoundedRectangle(cornerRadius: 5)

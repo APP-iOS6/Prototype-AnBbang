@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EstateMapView: View {
-    @State private var scale: CGFloat = 1.0
+    @State private var scale: CGFloat = 0.4
     @State private var shouldShowHomeList: Bool = true
     @State private var searchText: String = ""
     
@@ -22,14 +22,11 @@ struct EstateMapView: View {
     var body: some View {
         ZStack(alignment: .top) {
             ScrollView([.vertical, .horizontal]) {
-                Image(.MapDummy.map)
+                Image(.MapDummy.CCTV)
                     .scaleEffect(scale)
                     .gesture(magnification)
             }
             .sheet(isPresented: $shouldShowHomeList) {
-//                ForEach(1...10, id: \.self) { num in
-//                    Text("\(num)")
-//                }
                 LikelistView()
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.fraction(0.1), .fraction(0.45), .fraction(0.65)])
