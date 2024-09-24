@@ -61,16 +61,35 @@ struct MoreView: View {
                 
                 
                 List {
-                    Label("방 내놓기", systemImage: "house")
-                    Label("허위매물 신고 내역", systemImage: "doc.text")
-                    Label("이벤트", systemImage: "star")
-                    Label("안방 새소식", systemImage: "bell.badge")
+                    // 네비게이션 링크를 사용하여 화면 전환
+                    NavigationLink(destination: RoomView()) {
+                        Label("방 내놓기", systemImage: "house")
+                    }
                     
+                    NavigationLink(destination: ReportView()) {
+                        Label("허위매물 신고 내역", systemImage: "doc.text")
+                    }
                     
+                    NavigationLink(destination: EventView()) {
+                        Label("이벤트", systemImage: "star")
+                    }
                     
-                    Text("이용약관")
-                    Text("개인정보 처리방침")
-                    Text("회사 소개")
+                    NavigationLink(destination: NewsView()) {
+                        Label("안방 새소식", systemImage: "bell.badge")
+                    }
+                    
+                    // 약관 및 회사 소개
+                    NavigationLink(destination: TermsView()) {
+                        Text("이용약관")
+                    }
+                    
+                    NavigationLink(destination: PrivacyPolicyView()) {
+                        Text("개인정보 처리방침")
+                    }
+                    
+                    NavigationLink(destination: CompanyInfoView()) {
+                        Text("회사 소개")
+                    }
                 }
                 .listStyle(.inset)
                 
