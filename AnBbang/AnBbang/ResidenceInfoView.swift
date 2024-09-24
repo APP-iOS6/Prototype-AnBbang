@@ -14,7 +14,6 @@ struct ResidenceInfoView: View {
     @State private var isPresented: Bool = false
     var checkDick: [String: String] = ["1. 계약 전\n 확인하기": "before", "2. 계약 당일\n 준비": "dDay", "3. 계약 후\n 확인하기": "after", "4. 이삿날\n 해야할 일": "move"]
     @State private var imageName: String = ""
-    
     var body: some View {
         VStack {
             ZStack(alignment: .topTrailing) {
