@@ -105,6 +105,7 @@ struct LikelistView: View {
                     }
                 }
             }
+            .listStyle(PlainListStyle())
             .navigationTitle("관심 목록")
             .navigationBarTitleDisplayMode(.inline) // 네비게이션 타이틀 가운데 정렬
             .sheet(isPresented: $showModal) {

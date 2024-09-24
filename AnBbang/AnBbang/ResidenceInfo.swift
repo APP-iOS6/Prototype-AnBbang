@@ -10,6 +10,8 @@ import Foundation
 struct ResidenceInfo: Identifiable {
     var id: UUID = .init()
     var images: [String]
+    var residenceType: String
+    var subInfo: String
     var registNumber: String
     var registDate: String
     var realEstateAgent: RealEstateAgent
@@ -39,7 +41,8 @@ struct MaintenanceCost {
     var detail: String
 }
 
-struct Option {
+struct Option: Identifiable {
+    var id: UUID = .init()
     var name: String
     var image: String
 }
