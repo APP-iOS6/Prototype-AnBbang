@@ -11,7 +11,7 @@ import SwiftUI
 struct AnBbangApp: App {
     var body: some Scene {
         WindowGroup {
-            EstateMapView()
+            LoginView()
         }
     }
 }
