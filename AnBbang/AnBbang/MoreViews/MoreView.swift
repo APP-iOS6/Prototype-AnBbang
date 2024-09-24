@@ -8,15 +8,34 @@
 import SwiftUI
 
 struct MoreView: View {
+    // 로그인 상태를 관리하는 변수
+    @State private var isLoggedIn = true // 임시로 false로 설정
+    @State private var userName = "구아바" // 로그인한 사용자의 닉네임
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    // 로그인 및 회원가입 섹션
-                    Text("로그인 및 회원가입") // 섹션 타이틀
-                        .font(.title)
-                        .foregroundColor(.black)
+                    // 로그인 상태에 따라 다른 뷰 표시
+                    if isLoggedIn {
+                        HStack {
+                            Image(systemName: "person.circle") // 프로필 아이콘
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                            Text(userName) // 로그인된 사용자 닉네임
+                                .font(.title)
+                                .foregroundColor(.black)
+                            
+                            Spacer()
+                            
+                        }
                         .padding(.top)
+                    } else {
+                        Text("로그인 및 회원가입") // 로그인 안된 경우
+                            .font(.title)
+                            .foregroundColor(.black)
+                            .padding(.top)
+                    }
                     
                     Divider() // 구분선
                     
