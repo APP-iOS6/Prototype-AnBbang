@@ -11,7 +11,7 @@ import Observation
 struct EstateMapView: View {
     @Bindable var residenceStore: ResidenceStore
     @State private var currScale: CGFloat = 0.0
-    @State private var scale: CGFloat = 0.4
+    @State private var scale: CGFloat = 1.0
     @State private var shouldShowHomeList: Bool = true
     @State private var showFilterSheet: Bool = false
     @State private var searchText: String = ""
@@ -27,23 +27,40 @@ struct EstateMapView: View {
             }
             .onEnded { value in
                 scale += currScale
+                
+                if scale < 0.5 {
+                    scale = 0.5
+                } else if scale > 1.0 {
+                    scale = 1.0
+                }
+                
                 currScale = 0
             }
     } // 실기기에서 버그는 있지만 기능은 잘 작동함
     
     var body: some View {
         ZStack(alignment: .top) {
-            ScrollView([.vertical, .horizontal]) {
-                ZStack {
-                    Image(currMap)
-                        .scaleEffect(currScale + scale)
-                        .gesture(magnification)
-                    if let stayNumberMap {
-                        Image(stayNumberMap)
+            GeometryReader { geometry in
+                ScrollView([.vertical, .horizontal]) {
+                    ZStack {
+                        Image(currMap)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
                             .scaleEffect(currScale + scale)
                             .gesture(magnification)
+                        if let stayNumberMap {
+                            Image(stayNumberMap)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .scaleEffect(currScale + scale)
+                                .gesture(magnification)
+                        }
                     }
+                    .frame(
+                        width: max(UIImage(resource: currMap).size.width * (currScale + scale), geometry.size.width),
+                        height: max(UIImage(resource: currMap).size.height * (currScale + scale), geometry.size.height))
                 }
+                .frame(width: geometry.size.width, height: geometry.size.height)
             }
             
             VStack(alignment: .trailing, spacing: 10) {
@@ -52,7 +69,7 @@ struct EstateMapView: View {
                 HStack(spacing: 10) {
                     RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 50, height: 30)) {
                         Button {
-                            print("A")
+                            //scale += 0.1
                         } label: {
                             Image(systemName: "switch.2")
                         }
@@ -60,7 +77,7 @@ struct EstateMapView: View {
                     
                     RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 120, height: 30)) {
                         Button {
-                            print("B")
+                            //scale -= 0.1
                         } label: {
                             Text("거래유형/가격")
                         }
