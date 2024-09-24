@@ -19,6 +19,8 @@ struct EstateMapView: View {
     @State private var currMap: ImageResource = .MapDummy._22PoliceStay
     @State private var stayNumberMap: ImageResource? = .MapDummy.stayNumber
     @State private var filterSheetType: FilterSheetType = .protection
+    var category: String = ""
+    var categoryImage: String = ""
     
     private var magnification: some Gesture {
         MagnifyGesture()
@@ -64,7 +66,8 @@ struct EstateMapView: View {
             }
             
             VStack(alignment: .trailing, spacing: 10) {
-                SearchView(searchText: $searchText)
+                SearchView(searchText: $searchText, category: category, categoryImage: categoryImage)
+                    .padding(.top, 100)
                 
                 HStack(spacing: 10) {
                     RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 50, height: 30)) {
@@ -85,7 +88,6 @@ struct EstateMapView: View {
                     
                     RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 85, height: 30)) {
                         Button {
-                            print("C")
                         } label: {
                             Text("방크기")
                         }
@@ -126,7 +128,6 @@ struct EstateMapView: View {
                     
                     RoundedRectangleWithShadowBackground {
                         Button {
-                            print("자기 위치")
                         } label: {
                             Image(systemName: "dot.scope")
                                 .font(.title2)
@@ -166,16 +167,26 @@ struct EstateMapView: View {
             .presentationDetents([.medium])
         }
         .sheet(isPresented: $shouldShowHomeList) {
-            LikelistView()
-                .presentationDragIndicator(.visible)
-                .presentationDetents([.fraction(0.1), .fraction(0.45), .fraction(0.65)])
-                .presentationBackgroundInteraction(.enabled)
-                .interactiveDismissDisabled()
-                
+            NavigationStack {
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(residenceStore.residences.indices) { index in
+                            ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
+                                .presentationDetents([.fraction(0.1), .fraction(0.4), .fraction(0.8) ])
+                                .presentationBackgroundInteraction(.enabled)
+                                .interactiveDismissDisabled()
+                        }
+                    }
+                }
+                .padding(.leading, 20)
+            }
         }
+        .ignoresSafeArea()
+        .modifier(BackButtonModifier())
     }
 }
 
 #Preview {
-    EstateMapView(residenceStore: ResidenceStore())
+    MainView()
+        .environment(ResidenceStore())
 }

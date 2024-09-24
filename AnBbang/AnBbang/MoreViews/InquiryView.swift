@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct InquiryView: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         VStack {
             Text("상담 문의한 방이 없습니다.")
@@ -15,6 +17,7 @@ struct InquiryView: View {
         }
         .foregroundStyle(.gray)
         .navigationTitle("문의한 방")
+        .modifier(BackButtonModifier())
     }
 }
 

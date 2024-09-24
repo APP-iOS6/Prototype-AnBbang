@@ -33,9 +33,6 @@ struct MainView: View {
         }
         .tint(.accent)
         .navigationBarBackButtonHidden()
-        .onAppear {
-            residenceStore.initFavoritesResidences()
-        }
     }
 }
 
@@ -43,61 +40,74 @@ struct HomeView: View {
     @EnvironmentObject var residenceStore: ResidenceStore
     var body: some View {
         NavigationStack {
-            VStack {
-                Image("anbbangLogo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 365, height: 70, alignment: .leading)
-                
-                Spacer()
-                    .frame(height: 30)
-                
-                Grid {
-                    GridRow {
-                        NavigationLink {
-                            EstateMapView(residenceStore: residenceStore)
-                        } label: {
-                            ResidenceCell(residence: Residence.gositel.rawValue, image: "bed.double.fill")
+            ScrollView {
+                VStack {
+                    Image("anbbangLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 365, height: 70, alignment: .leading)
+                    
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    Grid {
+                        GridRow {
+                            NavigationLink {
+                                EstateMapView(residenceStore: residenceStore, category: "고시텔", categoryImage: "bed.double.fill")
+                            } label: {
+                                ResidenceCell(residence: Residence.gositel.rawValue, image: "bed.double.fill")
+                            }
+                            
+                            NavigationLink {
+                                EstateMapView(residenceStore: residenceStore, category: Residence.oneRoom.rawValue, categoryImage: "house.fill")
+                            } label: {
+                                ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.fill")
+                            }
                         }
+                        .padding(.bottom, 5)
                         
-                        NavigationLink {
-                            EstateMapView(residenceStore: residenceStore)
-                        } label: {
-                            ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.fill")
+                        GridRow {
+                            NavigationLink {
+                                EstateMapView(residenceStore: residenceStore, category: Residence.villaAndTwoRoom.rawValue, categoryImage: "building.2.fill")
+                            } label: {
+                                ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "building.2.fill")
+                            }
+                            
+                            NavigationLink {
+                                EstateMapView(residenceStore: residenceStore, category: Residence.officetel.rawValue, categoryImage: "building.columns.fill")
+                            } label: {
+                                ResidenceCell(residence: Residence.officetel.rawValue, image: "building.columns.fill")
+                            }
                         }
                     }
                     
-                    GridRow {
-                        NavigationLink {
-                            EstateMapView(residenceStore: residenceStore)
-                        } label: {
-                            ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "building.2.fill")
-                        }
-                        
-                        NavigationLink {
-                            EstateMapView(residenceStore: residenceStore)
-                        } label: {
-                            ResidenceCell(residence: Residence.officetel.rawValue, image: "building.columns.fill")
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    Image("event")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 365)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    Text("이 근처 추천 매물")
+                        .frame(width: 365, alignment: .leading)
+                        .fontWeight(.bold)
+                    
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(residenceStore.residences.indices) { index in
+                                ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
+                            }
                         }
                     }
                 }
-                
-                Spacer()
-                    .frame(height: 50)
-                
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(residenceStore.residences.indices) { index in
-                            ResidenceDetail(residence: $residenceStore.residences[index])
-                        }
-                    }
-                }
-                
-                Spacer()
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
             }
-            
-            .padding(.leading, 20)
-            .padding(.trailing, 20)
         }
     }
 }
@@ -125,56 +135,84 @@ struct ResidenceCell: View {
     }
 }
 
-// 관심 목록 탭 뷰
-struct FavoritesView: View {
-    var body: some View {
-        LikelistView()
-    }
-}
-
 struct ResidenceDetail: View {
     @EnvironmentObject var residenceStore: ResidenceStore
     @Binding var residence: ResidenceInfo
-    @State private var isFavorites: Bool = false
-    @State private var heartImageName: String = "suit.heart"
+    @State var isVertical: Bool = false
     
     var body: some View {
         VStack {
-            ZStack(alignment: .topTrailing) {
-                Image(residence.images[0])
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(alignment: .leading)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                Button {
-                    residence.isFavorite.toggle()
-                    residenceStore.addFavoriteResidence(residence: residence)
-                } label: {
-                    Image(systemName: residence.isFavorite ? "heart.fill" : "heart")
-                        .foregroundStyle(residence.isFavorite ? .red : .white)
-                }
-                .padding(.top, 5)
-                .padding(.trailing, 5)
-                
-            }
-            .frame(width: 130, height: 130, alignment: .leading)
-            
-            VStack {
-                NavigationLink {
-                    ResidenceInfoView(residence: residence)
-                } label: {
-                    VStack(alignment: .leading) {
-                        Text(residence.quickInfo.monthlyRent)
-                            .background(Color.white)
-                        Text(residence.residenceType)
-                            .font(.caption)
-                        Text(residence.subInfo)
-                            .font(.caption)
+            NavigationLink {
+                ResidenceInfoView(residence: $residence)
+            } label: {
+                if isVertical {
+                    VStack {
+                        ResidenceDetailContent(residence: $residence, isVertsical: $isVertical)
                     }
-                    .frame(width: 130)
-                    .foregroundStyle(.black)
+                } else {
+                    HStack {
+                        ResidenceDetailContent(residence: $residence, isVertsical: $isVertical)
+                            .padding(.leading, 20)
+                        Spacer()
+                    }
                 }
             }
+        }
+    }
+}
+
+struct ResidenceDetailContent: View {
+    @EnvironmentObject var residenceStore: ResidenceStore
+    @Binding var residence: ResidenceInfo
+    @State private var heartImageName: String = "suit.heart"
+    @Binding var isVertsical: Bool
+    
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            Image(residence.images[0])
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(alignment: .leading)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+            Button {
+                residenceStore.toggleFavorite(id: residence.id)
+            } label: {
+                Image(systemName: residence.isFavorite ? "heart.fill" : "heart")
+                    .foregroundStyle(residence.isFavorite ? .red : .white)
+            }
+            .padding(.top, 5)
+            .padding(.trailing, 5)
+            .zIndex(1)
+        }
+        .frame(width: 130, height: 130, alignment: .leading)
+        
+        if isVertsical {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(residence.quickInfo.monthlyRent)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                Text(residence.residenceType)
+                    .font(.caption)
+                Text(residence.subInfo)
+                    .font(.caption)
+            }
+            .frame(width: 130, height: 100, alignment: .leading)
+            .foregroundStyle(.black)
+        } else {
+            VStack(alignment: .leading, spacing: 15) {
+                Text(residence.quickInfo.monthlyRent)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                Text(residence.residenceType)
+                    .font(.caption)
+                Text(residence.subInfo)
+                    .font(.caption)
+                
+                Spacer()
+            }
+            .frame(width: 200, height: 130, alignment: .leading)
+            .foregroundStyle(.black)
+            .padding(.leading, -10)
         }
     }
 }

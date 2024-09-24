@@ -15,6 +15,7 @@ struct CustomerSupportView: View {
             Text("공지사항")
         }
         .navigationTitle("고객센터")
+        .modifier(BackButtonModifier())
     }
 }
 

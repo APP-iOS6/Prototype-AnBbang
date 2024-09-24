@@ -24,7 +24,6 @@ struct LoginView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                
                 VStack {
                     Text("간편하게 로그인하고")
                         .font(.system(size: 18, weight: .medium))

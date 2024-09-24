@@ -11,6 +11,7 @@ struct EventView: View {
     var body: some View {
         Text("현재 진행중인 이벤트가 없습니다")
             .navigationTitle("이벤트")
+            .modifier(BackButtonModifier())
     }
 }
 

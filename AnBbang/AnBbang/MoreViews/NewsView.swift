@@ -22,6 +22,7 @@ struct NewsView: View {
                 """)
         }
         .navigationTitle("안방 새소식")
+        .modifier(BackButtonModifier())
     }
 }
 

@@ -51,6 +51,7 @@ struct PrivacyPolicyView: View {
             .padding()
         }
         .navigationTitle("개인정보 처리방침")
+        .modifier(BackButtonModifier())
     }
 }
 

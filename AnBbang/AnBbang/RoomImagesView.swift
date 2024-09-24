@@ -18,11 +18,11 @@ struct RoomImagesView: View {
                     .aspectRatio(contentMode: .fill)
             }
         }
-        .tabViewStyle(PageTabViewStyle())
-        .ignoresSafeArea()
+        .tabViewStyle(.page)
     }
 }
 
-//#Preview {
-//    ResidenceInfoView(residence: ResidenceStore().residences[0])
-//}
+#Preview {
+    MainView()
+        .environment(ResidenceStore())
+}

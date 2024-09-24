@@ -220,6 +220,7 @@ struct TermsView: View {
             .padding()
         }
         .navigationTitle("이용약관")
+        .modifier(BackButtonModifier())
     }
 }
 

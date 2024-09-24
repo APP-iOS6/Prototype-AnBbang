@@ -13,7 +13,8 @@ struct MyPostsView: View {
             Text("내가 쓴 이야기가 없습니다.")
                 .foregroundStyle(.gray)
         }
-        .navigationTitle("내가 쓴 이야기") 
+        .navigationTitle("내가 쓴 이야기")
+        .modifier(BackButtonModifier())
     }
 }
 

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ResidenceInfoView: View {
     @EnvironmentObject var residenceStore: ResidenceStore
-    var residence: ResidenceInfo
-    @State private var isFavorites: Bool = false
+    @Binding var residence: ResidenceInfo
+    @State var isFavorite: Bool = false
     @State private var isPresented: Bool = false
     var checkDict: [String: String] = ["1. 계약 전\n 확인하기": "before", "2. 계약 당일\n 준비": "dDay", "3. 계약 후\n 확인하기": "after", "4. 이삿날\n 해야할 일": "move"]
     @State private var imageName: String = ""
@@ -22,14 +22,17 @@ struct ResidenceInfoView: View {
                 
                 Button {
                     residenceStore.toggleFavorite(id: residence.id)
-                    residenceStore.subFavoriteResidence(id: residence.id)
+                    isFavorite = residenceStore.getFavorites(id: residence.id)
                 } label: {
-                    Image(systemName: residence.isFavorite ? "heart.fill" : "heart")
-                        .foregroundStyle(residence.isFavorite ? .red : .white)
+                    Image(systemName: isFavorite == true ? "heart.fill" : "heart")
+                        .foregroundStyle(isFavorite ? .red : .white)
                 }
                 .padding(.trailing, 20)
+                .padding(.top, 100)
+                .zIndex(1)
             }
-            .frame(maxHeight: 250)
+            .ignoresSafeArea()
+            .frame(maxHeight: 150)
             
             ScrollView {
                 HStack {
@@ -199,7 +202,7 @@ struct ResidenceInfoView: View {
                         .padding(.bottom, 10)
                         .padding(.leading, 60)
                         .padding(.trailing, 60)
-                        .background(Color.yellow)
+                        .background(Color.accent)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                         .foregroundStyle(.white)
                         .fontWeight(.bold)
@@ -209,6 +212,10 @@ struct ResidenceInfoView: View {
             
             
         }
+        .onAppear {
+            isFavorite = residenceStore.getFavorites(id: residence.id)
+        }
+        .modifier(BackButtonModifier())
     }
 }
 

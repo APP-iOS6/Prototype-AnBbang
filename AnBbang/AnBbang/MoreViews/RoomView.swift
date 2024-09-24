@@ -58,6 +58,7 @@ struct RoomView: View {
             Spacer()
         }
         .navigationTitle("방 내놓기")
+        .modifier(BackButtonModifier())
     }
 }
 

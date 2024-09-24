@@ -12,6 +12,7 @@ struct ResidenceInfo: Identifiable {
     var images: [String]
     var residenceType: String
     var isFavorite: Bool = false
+    var isFemaleOnly: Bool = false
     var subInfo: String
     var registNumber: String
     var registDate: String
