@@ -45,7 +45,7 @@ struct LikelistView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
+                ForEach(items.filter { favoriteItems[$0.id] == true }) { item in
                     HStack{
                         HStack {
                             ZStack(alignment: .topTrailing) {
@@ -107,22 +107,29 @@ struct LikelistView: View {
             }
             .navigationTitle("관심 목록")
             .navigationBarTitleDisplayMode(.inline) // 네비게이션 타이틀 가운데 정렬
-            .sheet(isPresented: $showModal) {
+            .sheet(isPresented: Binding<Bool>(
+                get: { showModal && selectedItem != nil },
+                set: { newValue in showModal = newValue }
+            )) {
                 if let selectedItem = selectedItem {
                     DetailView(item: selectedItem, favoriteItems: $favoriteItems, removeItem: removeItem)
                 }
             }
             .onAppear {
                 // 각 항목의 초기 관심 상태를 true로 설정
-                items.forEach { item in
-                    if favoriteItems[item.id] == nil {
-                        favoriteItems[item.id] = true
-                    }
-                }
+                initializeFavoriteItems()
             }
         }
     }
     
+    // favoriteItems를 초기화하는 함수
+        private func initializeFavoriteItems() {
+            for item in items {
+                if favoriteItems[item.id] == nil {
+                    favoriteItems[item.id] = true
+                }
+            }
+        }
     // 아이템을 삭제하는 함수
     private func removeItem(withID id: UUID) {
         items.removeAll { $0.id == id }
