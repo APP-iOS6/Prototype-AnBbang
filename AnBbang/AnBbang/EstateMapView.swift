@@ -74,21 +74,33 @@ struct EstateMapView: View {
                 VStack() {
                     RoundedRectangleWithShadowBackground(frame: CGSize(width: 50, height: 145)) {
                         VStack(alignment: .center, spacing: 10) {
-                            Text("도구")
+                            Button("안전") {
+                                print("안전")
+                            }
                             Divider()
                                 .frame(width: 50)
-                            Text("시세")
+                            Button("편의") {
+                                print("편의")
+                            }
                             Divider()
                                 .frame(width: 50)
-                            Text("숨김")
+                            Button("숨김") {
+                                print("숨김")
+                            }
                         }
+                        .foregroundStyle(.black)
                     }
                     
                     RoundedRectangleWithShadowBackground {
-                        Image(systemName: "dot.scope")
-                            .font(.title2)
+                        Button {
+                            print("자기 위치")
+                        } label: {
+                            Image(systemName: "dot.scope")
+                                .font(.title2)
+                        }
                     }
                 }
+                .foregroundStyle(.black)
                 .padding(.trailing, 10)
             }
         }
