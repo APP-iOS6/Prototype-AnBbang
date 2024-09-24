@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ResidenceInfoView: View {
-    @Bindable var residenceStore: ResidenceStore = ResidenceStore()
+    var residence: ResidenceInfo
     let roomImages = ["TempRoom", "TempRoom2", "TempRoom3"]
     @State private var isFavorites: Bool = false
     @State private var isPresented: Bool = false
@@ -18,7 +18,7 @@ struct ResidenceInfoView: View {
     var body: some View {
         VStack {
             ZStack(alignment: .topTrailing) {
-                RoomImagesView(roomImages: roomImages)
+                RoomImagesView(roomImages: residence.images)
                 
                 Button {
                     isFavorites.toggle()
@@ -32,7 +32,7 @@ struct ResidenceInfoView: View {
             
             ScrollView {
                 HStack {
-                    Text("등록번호 : 12345678")
+                    Text(residence.registNumber)
                         .padding(4)
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -42,7 +42,7 @@ struct ResidenceInfoView: View {
                     
                     Spacer()
                     
-                    Text("3일 전")
+                    Text(residence.registDate)
                         .font(.caption2)
                         .foregroundStyle(.gray)
                 }
@@ -53,14 +53,16 @@ struct ResidenceInfoView: View {
                 HStack {
                     Image(systemName: "person.crop.circle")
                     
-                    Text("LAB 5 공인중개사사무소")
+                    Text(residence.realEstateAgent.name)
                     
                     Spacer()
                     
                     VStack {
                         Image(systemName: "star.fill")
                         
-                        Text("4.9")
+                        let stringRating = String(format: "%.1f", residence.realEstateAgent.rating)
+                        
+                        Text(stringRating)
                     }
                 }
                 .padding(.leading, 10)
@@ -70,12 +72,12 @@ struct ResidenceInfoView: View {
                 
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("경상북도 경산시 압량읍")
+                        Text(residence.quickInfo.adress)
                             .font(.caption)
-                        Text("월세 500/30")
+                        Text(residence.quickInfo.monthlyRent)
                             .fontWeight(.bold)
                             .font(.title2)
-                        Text("관리비 7만원")
+                        Text(residence.quickInfo.maintenanceCost)
                             .font(.caption)
                     }
                     .padding(.top, 15)
@@ -104,18 +106,10 @@ struct ResidenceInfoView: View {
                     Divider()
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("월 관리비 70,000원")
+                        Text(residence.maintenanceCost.cost)
                             .fontWeight(.bold)
                             .font(.title3)
-                        Text("""
-                             최근 1년 관리비 평균금액 기준으로 산정
-                             - 부과방식 : 정액관리비
-                             - 일반(공용)관리비 : 70,000원
-                             - 인터넷 사용료 : 의뢰인 미제공
-                             - 수도료: 의뢰인 미제공
-                             - TV사용료 : 의뢰인 미제공
-                             - 기타관리비 : 의뢰인 미제공
-                             """)
+                        Text(residence.maintenanceCost.detail)
                         .lineSpacing(10)
                     }
                     .padding(.top, 15)
@@ -130,44 +124,11 @@ struct ResidenceInfoView: View {
                         
                         ScrollView(.horizontal) {
                             HStack(spacing: 45) {
-                                VStack {
-                                    Image(systemName: "refrigerator")
-                                    Text("세탁기")
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "sink")
-                                    Text("싱크대")
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "air.conditioner.horizontal")
-                                    Text("에어컨")
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "shoe.2")
-                                    Text("신발장")
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "hanger")
-                                    Text("옷장")
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "bed.double")
-                                    Text("침대")
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "stove")
-                                    Text("가스렌지")
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "studentdesk")
-                                    Text("책상")
+                                ForEach(residence.options) { option in
+                                    VStack {
+                                        Image(systemName: option.image)
+                                        Text(option.name)
+                                    }
                                 }
                             }
                             .padding(5)
@@ -178,12 +139,7 @@ struct ResidenceInfoView: View {
                    
                     Divider()
                     
-                    Text("""
-                         이 방이 어쩌고 저쩌고 그래서 좋습니다.
-                         옵션도 낭낭해요.
-                         주차도 편안해요.
-                         제가 살고싶을만큼!
-                         """)
+                    Text(residence.roomDescription)
                     .lineSpacing(5)
                     .padding(.top, 15)
                     .padding(.bottom, 15)
@@ -229,7 +185,7 @@ struct ResidenceInfoView: View {
             }
             
             HStack {
-                Text("월세 500/30")
+                Text(residence.quickInfo.monthlyRent)
                     .fontWeight(.bold)
                 
                 Spacer()
@@ -268,5 +224,5 @@ struct CheckView: View {
 }
 
 #Preview {
-    ResidenceInfoView()
+    ResidenceInfoView(residence: ResidenceStore.residences[0])
 }
