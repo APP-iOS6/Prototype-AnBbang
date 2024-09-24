@@ -9,10 +9,8 @@ import SwiftUI
 
 struct ReportView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("내역이 없습니다")
+            .navigationTitle("직거래 허위매물 신고 내역")
     }
 }
 
-#Preview {
-    ReportView()
-}

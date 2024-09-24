@@ -9,10 +9,11 @@ import SwiftUI
 
 struct MyPostsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("내가 쓴 이야기가 없습니다.")
+                .foregroundStyle(.gray)
+        }
+        .navigationTitle("내가 쓴 이야기") 
     }
 }
 
-#Preview {
-    MyPostsView()
-}

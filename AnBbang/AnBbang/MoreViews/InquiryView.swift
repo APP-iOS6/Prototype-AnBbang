@@ -9,10 +9,12 @@ import SwiftUI
 
 struct InquiryView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("상담 문의한 방이 없습니다.")
+            Text("관심있는 방을 문의 해보세요.")
+        }
+        .foregroundStyle(.gray)
+        .navigationTitle("문의한 방")
     }
 }
 
-#Preview {
-    InquiryView()
-}

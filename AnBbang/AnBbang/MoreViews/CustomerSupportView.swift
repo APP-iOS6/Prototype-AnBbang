@@ -9,10 +9,12 @@ import SwiftUI
 
 struct CustomerSupportView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            Text("1:1 문의")
+            Text("이용안내")
+            Text("공지사항")
+        }
+        .navigationTitle("고객센터")
     }
 }
 
-#Preview {
-    CustomerSupportView()
-}

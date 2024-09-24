@@ -9,10 +9,8 @@ import SwiftUI
 
 struct EventView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("현재 진행중인 이벤트가 없습니다")
+            .navigationTitle("이벤트")
     }
 }
 
-#Preview {
-    EventView()
-}
