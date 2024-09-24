@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EstateMapView: View {
     @State private var scale: CGFloat = 1.0
-    @State private var shouldShowHomeList: Bool = false
+    @State private var shouldShowHomeList: Bool = true
     @State private var searchText: String = ""
     
     private var magnification: some Gesture {
@@ -27,14 +27,15 @@ struct EstateMapView: View {
                     .gesture(magnification)
             }
             .sheet(isPresented: $shouldShowHomeList) {
-                ForEach(1...10, id: \.self) { num in
-                    Text("\(num)")
-                }
+//                ForEach(1...10, id: \.self) { num in
+//                    Text("\(num)")
+//                }
+                LikelistView()
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.fraction(0.1), .fraction(0.45), .fraction(0.65)])
                 .presentationBackgroundInteraction(.enabled)
                 .onDisappear() {
-                    //houldShowHomeList = true
+                    shouldShowHomeList = true
                 }
             }
             
@@ -94,6 +95,6 @@ struct EstateMapView: View {
     }
 }
 
-//#Preview {
-//    EstateMapView()
-//}
+#Preview {
+    EstateMapView()
+}

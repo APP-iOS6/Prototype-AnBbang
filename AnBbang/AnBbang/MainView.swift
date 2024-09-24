@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Residence: String {
-    case apartment = "아파트"
+    case gositel = "여성 전용 고시텔"
     case villaAndTwoRoom = "빌라/투룸+"
     case oneRoom = "원룸"
     case officetel = "오피스텔"
@@ -30,6 +30,7 @@ struct MainView: View {
             }
         }
         .tint(.yellow)
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -48,27 +49,27 @@ struct HomeView: View {
                 Grid {
                     GridRow {
                         NavigationLink {
-                            
+                            EstateMapView()
                         } label: {
-                            ResidenceCell(residence: Residence.apartment.rawValue, image: "house.circle.fill")
+                            ResidenceCell(residence: Residence.gositel.rawValue, image: "house.circle.fill")
                         }
                         
                         NavigationLink {
-                            
+                            EstateMapView()
                         } label: {
-                            ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "house.lodge.circle.fill")
+                            ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.circle.fill")
                         }
                     }
                     
                     GridRow {
                         NavigationLink {
-                            
+                            EstateMapView()
                         } label: {
-                            ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.circle.fill")
+                            ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "house.lodge.circle.fill")
                         }
                         
                         NavigationLink {
-                            
+                            EstateMapView()
                         } label: {
                             ResidenceCell(residence: Residence.officetel.rawValue, image: "house.circle.fill")
                         }
