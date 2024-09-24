@@ -19,6 +19,7 @@ struct EstateMapView: View {
     @State private var currMap: ImageResource = .MapDummy._22PoliceStay
     @State private var stayNumberMap: ImageResource? = .MapDummy.stayNumber
     @State private var filterSheetType: FilterSheetType = .protection
+    @State private var selectedFilter: Int = 0
     var category: String = ""
     var categoryImage: String = ""
     
@@ -167,12 +168,26 @@ struct EstateMapView: View {
             .presentationDetents([.medium])
         }
         .sheet(isPresented: $shouldShowHomeList) {
+            HStack {
+                Spacer()
+                
+                Picker("filter", selection: $selectedFilter) {
+                    Text("가격 순")
+                        .tag(0)
+                    Text("여성 전용")
+                        .tag(1)
+                }
+                .pickerStyle(.menu)
+            }
+            .padding(.leading, 10)
+            .padding(.top, 10)
+            
             NavigationStack {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(residenceStore.residences.indices) { index in
                             ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
-                                .presentationDetents([.fraction(0.1), .fraction(0.4), .fraction(0.8) ])
+                                .presentationDetents([.fraction(0.1), .fraction(0.4), .large ])
                                 .presentationBackgroundInteraction(.enabled)
                                 .interactiveDismissDisabled()
                         }

@@ -28,8 +28,8 @@ struct ResidenceInfoView: View {
                         .foregroundStyle(isFavorite ? .red : .white)
                 }
                 .padding(.trailing, 20)
-                .padding(.top, 100)
-                .zIndex(1)
+                .padding(.top, 90)
+                .zIndex(1) 
             }
             .ignoresSafeArea()
             .frame(maxHeight: 150)
