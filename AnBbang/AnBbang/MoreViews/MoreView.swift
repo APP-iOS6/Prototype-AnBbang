@@ -8,58 +8,72 @@
 import SwiftUI
 
 struct MoreView: View {
-    // 로그인 상태를 관리하는 변수
-    @State private var isLoggedIn = true // 임시로 false로 설정
-    @State private var userName = "구아바" // 로그인한 사용자의 닉네임
+    @State private var showLogoutAlert = false // 로그아웃 알림 표시 여부
+    @State private var isLoggedOut = false // 로그아웃 상태 관리
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    // 로그인 상태에 따라 다른 뷰 표시
-                    if isLoggedIn {
-                        HStack {
-                            Image(systemName: "person.circle") // 프로필 아이콘
-                                .font(.largeTitle)
-                                .foregroundColor(.black)
-                            Text(userName) // 로그인된 사용자 닉네임
-                                .font(.title)
-                                .foregroundColor(.black)
-                            
-                            Spacer()
-                            
+                    // 로그인된 경우, 프로필 아이콘과 로그아웃 버튼 표시
+                    HStack {
+                        Button(action: {
+                            showLogoutAlert = true // 로그아웃 알림 띄우기
+                        }) {
+                            HStack {
+                                Image(systemName: "person.circle") // 프로필 아이콘
+                                    .font(.largeTitle)
+                                    .foregroundColor(.black)
+                                Text("선녀의방") // 로그인된 사용자 닉네임
+                                    .font(.title3)
+                                    .foregroundColor(.black)
+                                
+                                Spacer()
+                            }
                         }
-                        .padding(.top)
-                    } else {
-                        Text("로그인 및 회원가입") // 로그인 안된 경우
-                            .font(.title)
-                            .foregroundColor(.black)
-                            .padding(.top)
+                        .alert(isPresented: $showLogoutAlert) {
+                            Alert(
+                                title: Text("로그아웃 하시겠습니까?"),
+                                primaryButton: .destructive(Text("로그아웃")) {
+                                    isLoggedOut = true // 로그아웃 상태로 전환
+                                },
+                                secondaryButton: .cancel(Text("취소"))
+                            )
+                        }
                     }
+                    .padding(.top)
                     
                     Divider() // 구분선
                     
                     // 버튼 섹션
                     HStack {
-                        // 문의한 방 버튼
                         NavigationLink(destination: InquiryView()) {
                             VStack {
+                                Spacer()
+                                
                                 Image(systemName: "magnifyingglass.circle")
                                     .font(.largeTitle)
-                                    .padding()
+                                
+                                Spacer()
+                                    .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
+                                
                                 Text("문의한 방")
                                     .foregroundColor(.black)
+                                
+                                Spacer()
                             }
                         }
                         
                         Spacer()
                         
-                        // 내가 쓴 이야기 버튼
                         NavigationLink(destination: MyPostsView()) {
                             VStack {
                                 Image(systemName: "sharedwithyou.circle")
                                     .font(.largeTitle)
-                                    .padding()
+                                
+                                Spacer()
+                                    .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
+                                
                                 Text("내가 쓴 이야기")
                                     .foregroundColor(.black)
                             }
@@ -67,12 +81,14 @@ struct MoreView: View {
                         
                         Spacer()
                         
-                        // 고객센터 버튼
                         NavigationLink(destination: CustomerSupportView()) {
                             VStack {
                                 Image(systemName: "info.circle")
                                     .font(.largeTitle)
-                                    .padding()
+                                
+                                Spacer()
+                                    .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
+                                
                                 Text("고객센터")
                                     .foregroundColor(.black)
                             }
@@ -82,56 +98,59 @@ struct MoreView: View {
                     
                     Divider() // 구분선
                     
+                    Spacer()
+                    
                     // 리스트 항목들 (왼쪽 정렬)
                     VStack(alignment: .leading) {
-                        // 방 내놓기 버튼
-                        VStack {
-                            NavigationLink(destination: RoomView()) {
-                                HStack {
-                                    Label("방 내놓기", systemImage: "house")
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                }
+                        NavigationLink(destination: RoomView()) {
+                            HStack {
+                                Image(systemName: "house")
+                                Text("방 내놓기")
+                                    .foregroundStyle(.black)
+                                Spacer()
                             }
-                            .padding(.vertical)
-                            
-                            // 허위매물 신고 내역 버튼
-                            NavigationLink(destination: ReportView()) {
-                                HStack {
-                                    Label("허위매물 신고 내역", systemImage: "doc.text")
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                }
-                            }
-                            .padding(.vertical)
-                            
-                            // 이벤트 버튼
-                            NavigationLink(destination: EventView()) {
-                                HStack {
-                                    Label("이벤트", systemImage: "star")
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                }
-                            }
-                            .padding(.vertical)
-                            
-                            // 안방 새소식 버튼
-                            NavigationLink(destination: NewsView()) {
-                                HStack {
-                                    Label("안방 새소식", systemImage: "bell.badge")
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                }
-                            }
-                            .padding(.vertical)
                         }
-                        .font(.title2) // 리스트 항목의 텍스트 크기 설정
+                        .padding(.vertical, 8)
                         
-                        Divider() // 구분선
+                        NavigationLink(destination: ReportView()) {
+                            HStack {
+                                Image(systemName: "doc.text")
+                                Text(" 허위매물 신고 내역")
+                                    .foregroundStyle(.black)
+                                Spacer()
+                            }
+                        }
+                        .padding(.vertical, 8)
+                        
+                        NavigationLink(destination: EventView()) {
+                            HStack {
+                                Image(systemName: "star")
+                                Text("이벤트")
+                                    .foregroundStyle(.black)
+                                Spacer()
+                            }
+                        }
+                        .padding(.vertical, 8)
+                        
+                        NavigationLink(destination: NewsView()) {
+                            HStack {
+                                Image(systemName: "bell.badge")
+                                Text(" 안방 새소식")
+                                    .foregroundStyle(.black)
+                                Spacer()
+                            }
+                        }
+                        .padding(.vertical, 8)
+                        
+                        Spacer()
+                        Spacer()
+                        
+                        Divider()
+                        
                         
                         // 현재 앱 버전 정보
                         HStack {
-                            VStack {
+                            VStack(alignment: .leading) {
                                 Text("현재 앱 버전")
                                 Spacer()
                                 Text("1.0.0")
@@ -141,40 +160,53 @@ struct MoreView: View {
                             
                             Text("최신 버전입니다.")
                         }
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
                         .padding(.vertical)
                         
-                        Divider() // 구분선
+                        Divider()
+                        
+                        Spacer()
+                        Spacer()
                         
                         // 약관 및 회사 소개
-                        NavigationLink(destination: TermsView()) {
-                            HStack {
-                                Text("이용약관")
-                                    .foregroundColor(.gray)
-                                Spacer()
+                        VStack {
+                            NavigationLink(destination: TermsView()) {
+                                HStack {
+                                    Text("이용약관")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
-                        }
-                        .padding(.vertical)
-                        
-                        NavigationLink(destination: PrivacyPolicyView()) {
-                            HStack {
-                                Text("개인정보 처리방침")
-                                    .foregroundColor(.gray)
-                                Spacer()
+                            .padding(.vertical, 3)
+                            
+                            NavigationLink(destination: PrivacyPolicyView()) {
+                                HStack {
+                                    Text("개인정보 처리방침")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
-                        }
-                        .padding(.vertical)
-                        
-                        NavigationLink(destination: CompanyInfoView()) {
-                            HStack {
-                                Text("회사 소개")
-                                    .foregroundColor(.gray)
-                                Spacer()
+                            .padding(.vertical, 3)
+                            
+                            NavigationLink(destination: CompanyInfoView()) {
+                                HStack {
+                                    Text("회사 소개")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                }
                             }
+                            .padding(.vertical, 3)
                         }
-                        .padding(.vertical)
+                        .font(.subheadline)
                     }
                 }
                 .padding()
+                
+                // 로그아웃 시 LoginView로 이동
+                NavigationLink(destination: LoginView(), isActive: $isLoggedOut) {
+                    EmptyView() // 빈 뷰
+                }
             }
             .navigationBarTitle("", displayMode: .inline) // 네비게이션 바 타이틀 설정
         }
