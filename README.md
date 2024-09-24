@@ -57,7 +57,7 @@
 
 <br>
 
-![Simulator Screen Recording - iPhone 16 - 2024-09-25 at 00 04 10](https://github.com/user-attachments/assets/f4a30937-f92b-4d82-a3c4-5761d6ee0086)
+![Simulator Screen Recording - iPhone 16 - 2024-09-25 at 00 29 32](https://github.com/user-attachments/assets/42218209-5e4a-4e83-94a0-a4503ac60395)
 
 <br>
 
