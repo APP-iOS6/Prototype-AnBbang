@@ -36,6 +36,7 @@
 <br>
 
 ## ✅ 기능 설명 (Features)
+
 1. 홈 화면
    - '여성 전용 고시텔', '원룸', '투룸 및 빌라', '오피스텔' 중 원하는 카테고리 선택
 
@@ -53,6 +54,10 @@
      
 4. 검증된 매물
    - 실제 해당 월세방을 사용했던 '사용자 리뷰 및 평점'을 통해 검증된 매물 선택 가능
+
+<br>
+
+![Simulator Screen Recording - iPhone 16 - 2024-09-25 at 00 04 10](https://github.com/user-attachments/assets/f4a30937-f92b-4d82-a3c4-5761d6ee0086)
 
 <br>
 
