@@ -16,7 +16,7 @@ struct EstateMapView: View {
     @State private var showFilterSheet: Bool = false
     @State private var searchText: String = ""
     @State private var mapFilterSheetTitle: String = ""
-    @State private var currMap: ImageResource = .MapDummy._22PoliceStay
+    @State private var currMap: ImageResource = .MapDummy.defaultMap
     @State private var stayNumberMap: ImageResource? = .MapDummy.stayNumber
     @State private var filterSheetType: FilterSheetType = .protection
     @State private var selectedFilter: Int = 0
