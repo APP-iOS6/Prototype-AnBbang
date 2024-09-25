@@ -12,7 +12,7 @@ struct EstateMapView: View {
     @Bindable var residenceStore: ResidenceStore
     @State private var currScale: CGFloat = 0.0
     @State private var scale: CGFloat = 1.0
-    @State private var shouldShowHomeList: Bool = true
+    @State private var shouldShowHomeList: Bool = false
     @State private var showFilterSheet: Bool = false
     @State private var searchText: String = ""
     @State private var mapFilterSheetTitle: String = ""
@@ -62,6 +62,9 @@ struct EstateMapView: View {
                     .frame(
                         width: max(UIImage(resource: currMap).size.width * (currScale + scale), geometry.size.width),
                         height: max(UIImage(resource: currMap).size.height * (currScale + scale), geometry.size.height))
+                    .onTapGesture {
+                        shouldShowHomeList.toggle()
+                    }
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
             }
@@ -150,7 +153,7 @@ struct EstateMapView: View {
                         currMap = .MapDummy._21Police
                         showFilterSheet.toggle()
                     }
-                     
+                    
                     Button("CCTV") {
                         currMap = .MapDummy.CCTV
                         showFilterSheet.toggle()
@@ -171,42 +174,38 @@ struct EstateMapView: View {
             .presentationDetents([.medium])
         }
         .sheet(isPresented: $shouldShowHomeList) {
-            NavigationStack {
-                HStack {
-                    Spacer()
-                    
-                    Picker("filter", selection: $selectedFilter) {
-                        Text("가격 순")
-                            .tag(0)
-                        Text("여성 전용")
-                            .tag(1)
-                    }
-                    .pickerStyle(.menu)
+            HStack {
+                Spacer()
+                
+                Picker("filter", selection: $selectedFilter) {
+                    Text("가격 순")
+                        .tag(0)
+                    Text("여성 전용")
+                        .tag(1)
                 }
-                .padding(.leading, 10)
-                .padding(.top, 10)
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(residenceStore.residences.indices) { index in
-                            ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
-                                .presentationDetents([.fraction(0.1), .fraction(0.4), .large ])
-                                .presentationBackgroundInteraction(.enabled)
-                                .interactiveDismissDisabled()
-                        }
-                    }
-                }
-                .padding(.leading, 20)
+                .pickerStyle(.menu)
             }
+            .padding(.leading, 10)
+            .padding(.top, 10)
+            
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(residenceStore.residences.indices) { index in
+                        ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
+                            .padding(.leading, 20)
+                    }
+                }
+            }
+            .presentationDetents([.fraction(0.4)])
+            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
         }
         .ignoresSafeArea()
         .modifier(BackButtonModifier())
-        .onDisappear {
-            shouldShowHomeList = false
-        }
     }
 }
 
 #Preview {
+    //EstateMapView(residenceStore: ResidenceStore())
     MainView()
         .environment(ResidenceStore())
 }
