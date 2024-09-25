@@ -223,7 +223,8 @@ struct MoreView: View {
                     }) {
                         Text("로그아웃")
                             .font(.subheadline)
-                            .foregroundColor(.red)
+                            .foregroundColor(.gray)
+                            .fontWeight(.bold)
                     }
                     .padding(.bottom, 20) // Tab Bar 위에 충분한 공간을 추가
                     .alert(isPresented: $showLogoutAlert) {
