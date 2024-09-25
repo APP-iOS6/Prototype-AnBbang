@@ -21,10 +21,10 @@ struct MoreView: View {
                         HStack {
                             Image(systemName: "person.circle") // 프로필 아이콘
                                 .font(.largeTitle)
-                                .foregroundColor(.black)
+                                .foregroundStyle(Color(UIColor.label))
                             Text("선녀의방") // 로그인된 사용자 닉네임
                                 .font(.title3)
-                                .foregroundColor(.black)
+                                .foregroundStyle(Color(UIColor.label))
                             
                             Spacer()
                         }
@@ -46,7 +46,7 @@ struct MoreView: View {
                                     .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
                                 
                                 Text("문의한 방")
-                                    .foregroundColor(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                                 
                                 Spacer()
                             }
@@ -63,7 +63,7 @@ struct MoreView: View {
                                     .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
                                 
                                 Text("내가 쓴 이야기")
-                                    .foregroundColor(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                             }
                         }
                         
@@ -78,7 +78,7 @@ struct MoreView: View {
                                     .frame(height: 5) // 아이콘과 텍스트 사이 간격 추가
                                 
                                 Text("고객센터")
-                                    .foregroundColor(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                             }
                         }
                     }
@@ -95,7 +95,7 @@ struct MoreView: View {
                             HStack {
                                 Image(systemName: "house")
                                 Text("방 내놓기")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                                 Spacer()
                             }
                         }
@@ -105,7 +105,7 @@ struct MoreView: View {
                             HStack {
                                 Image(systemName: "doc.text")
                                 Text(" 허위매물 신고 내역")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                                 Spacer()
                             }
                         }
@@ -115,7 +115,7 @@ struct MoreView: View {
                             HStack {
                                 Image(systemName: "star")
                                 Text("이벤트")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                                 Spacer()
                             }
                         }
@@ -125,7 +125,7 @@ struct MoreView: View {
                             HStack {
                                 Image(systemName: "bell.badge")
                                 Text(" 안방 새소식")
-                                    .foregroundStyle(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                                 Spacer()
                             }
                         }
@@ -140,7 +140,7 @@ struct MoreView: View {
                             HStack {
                                 Image(systemName: "safari") // Safari 아이콘
                                 Text(" 성범죄자 조회")
-                                    .foregroundColor(.black)
+                                    .foregroundStyle(Color(UIColor.label))
                                 Spacer()
                             }
                         }
@@ -201,21 +201,7 @@ struct MoreView: View {
                     }
                     
                     Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
+                        .frame(height: 130)
                     
                     // 로그아웃 버튼
                     Button(action: {

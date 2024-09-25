@@ -10,9 +10,6 @@ import SwiftUI
 struct RoomReviewView: View {
     @EnvironmentObject var reviewStore: RoomReviewStore // Store 인스턴스 생성
     @Binding var residence: ResidenceInfo
-    // 예시 방 정보
-    var roomName: String = "서울 강남 원룸"
-    var roomImage: String = "house"
     
     var body: some View {
         VStack {

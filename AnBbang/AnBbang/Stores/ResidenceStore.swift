@@ -102,7 +102,7 @@ class ResidenceStore: ObservableObject {
         ),
         
         ResidenceInfo(
-                images: ["TempRoom2", "TempRoom1", "TempRoom3"],
+                images: ["TempRoom2", "TempRoom", "TempRoom3"],
                 residenceType: "원룸",
                 isFavorite: true,
                 isFemaleOnly: true,

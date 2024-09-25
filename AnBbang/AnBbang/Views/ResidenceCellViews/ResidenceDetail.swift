@@ -34,24 +34,6 @@ struct ResidenceDetail: View {
                 ResidenceInfoView(residence: $residence)
             }
         }
-//        VStack {
-//            NavigationLink {
-//                ResidenceInfoView(residence: $residence)
-//                    .ignoresSafeArea()
-//            } label: {
-//                if isVertical {
-//                    VStack {
-//                        ResidenceDetailContent(residence: $residence, isVertsical: $isVertical)
-//                    }
-//                } else {
-//                    HStack {
-//                        ResidenceDetailContent(residence: $residence, isVertsical: $isVertical)
-//                            .padding(.leading, 20)
-//                        Spacer()
-//                    }
-//                }
-//            }
-//        }
     }
 }
 

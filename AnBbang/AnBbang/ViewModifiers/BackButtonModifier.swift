@@ -22,7 +22,7 @@ struct BackButtonModifier: ViewModifier {
                         Text("＜")
                             .fontWeight(.bold)
                             .font(.title)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(UIColor.label))
                     }
                 }
             }
