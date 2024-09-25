@@ -244,6 +244,7 @@ struct ResidenceInfoView: View {
         }
         .onAppear {
             isFavorite = residenceStore.getFavorites(id: residence.id)
+            print("\(residence.registNumber)")
         }
         .modifier(BackButtonModifier())
     }
