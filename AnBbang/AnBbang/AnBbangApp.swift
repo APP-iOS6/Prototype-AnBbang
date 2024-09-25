@@ -14,6 +14,9 @@ struct AnBbangApp: App {
             LoginView()
                 .environment(ResidenceStore())
                 .environment(RoomReviewStore())
+                .onDisappear {
+                    LocalNotificationManager.shared.setSchedule()
+                }
         }
     }
 }

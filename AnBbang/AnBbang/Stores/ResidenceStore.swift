@@ -58,7 +58,7 @@ class ResidenceStore: ObservableObject {
         ResidenceInfo(
             images: ["TempRoom3", "TempRoom", "TempRoom2"],
             residenceType: "원룸",
-            isFavorite: true,
+            isFavorite: false,
             isFemaleOnly: true,
             subInfo: "3층/4층, 30.15m², 관리비 17만원",
             registNumber: "98765432",
@@ -104,7 +104,7 @@ class ResidenceStore: ObservableObject {
         ResidenceInfo(
                 images: ["TempRoom2", "TempRoom1", "TempRoom3"],
                 residenceType: "원룸",
-                isFavorite: true,
+                isFavorite: false,
                 isFemaleOnly: true,
                 subInfo: "2층/4층, 25.00m², 관리비 15만원",
                 registNumber: "12345678",
@@ -174,7 +174,7 @@ class ResidenceStore: ObservableObject {
             ResidenceInfo(
                 images: ["TempRoom3", "TempRoom1", "TempRoom2"],
                 residenceType: "원룸",
-                isFavorite: true,
+                isFavorite: false,
                 isFemaleOnly: true,
                 subInfo: "3층/5층, 35.00m², 관리비 12만원",
                 registNumber: "13579246",
@@ -240,7 +240,7 @@ class ResidenceStore: ObservableObject {
             ResidenceInfo(
                 images: ["TempRoom", "TempRoom2", "TempRoom3"],
                 residenceType: "원룸",
-                isFavorite: true,
+                isFavorite: false,
                 isFemaleOnly: true,
                 subInfo: "4층/6층, 30.00m², 관리비 8만원",
                 registNumber: "36925814",

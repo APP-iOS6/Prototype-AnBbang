@@ -31,10 +31,6 @@ struct MainView: View {
                 MoreView()
             }
         }
-        .onAppear {
-            LocalNotificationManager.shared.requestPermission()
-            LocalNotificationManager.shared.setSchedule()
-        }
         .tint(.accent)
         .navigationBarBackButtonHidden()
     }

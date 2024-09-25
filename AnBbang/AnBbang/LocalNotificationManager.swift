@@ -8,20 +8,18 @@
 import Foundation
 import UserNotifications
 
-struct Notification: Identifiable {
-    let id: UUID = UUID()
+struct Notification {
+    let id: String
     let title: String
     let body: String
+    let notificationDate: DateComponents
 }
 
+@Observable
 final class LocalNotificationManager {
     static let shared: LocalNotificationManager = LocalNotificationManager()
-    private(set) var isAuthorized: Bool = false
-    private var notifications: [Notification] = [
-        Notification(title: "Hello", body: "World"),
-        Notification(title: "The", body: "World"),
-        Notification(title: "Time to buy!", body: "사세요오"),
-    ]
+    var isSelectedNotificationSetting: Bool = false
+    private var notifications: [Notification] = []
     
     private init() {
         
@@ -33,10 +31,7 @@ final class LocalNotificationManager {
                 print("Error: \(error!.localizedDescription)")
             }
             
-            if granted {
-                self?.isAuthorized = true
-                print("true")
-            }
+            self?.isSelectedNotificationSetting = true
         }
     }
     
@@ -52,25 +47,25 @@ final class LocalNotificationManager {
         }
     }
     
-    func addNewNotification(title: String, body: String) {
-        notifications.append(Notification(title: title, body: body))
+    func addNewNotification(notification: Notification) {
+        notifications.append(notification)
+    }
+    
+    func deleteNotification(id: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+        notifications.removeAll(where: { $0.id ==  id })        
     }
     
     private func scheduleNotifications() {
         notifications.forEach { notification in
-            var dateComponents = DateComponents()
-            dateComponents.calendar = Calendar.current
-            dateComponents.weekday = Calendar.current.component(.weekday, from: Date())
-            dateComponents.hour = Calendar.current.component(.hour, from: Date())
-            
             let content = UNMutableNotificationContent()
             content.title = notification.title
             content.subtitle = "안방 매물 알림"
             content.body = notification.body
             content.sound = .default
             
-            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-            let request = UNNotificationRequest(identifier: notification.id.uuidString, content: content, trigger: trigger)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.notificationDate, repeats: true)
+            let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request) { error in
                 if error != nil {
