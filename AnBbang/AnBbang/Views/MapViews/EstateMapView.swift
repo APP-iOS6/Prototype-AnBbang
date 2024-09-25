@@ -86,7 +86,7 @@ struct EstateMapView: View {
                         Button {
                             //scale -= 0.1
                         } label: {
-                            Text("거래유형/가격")
+                            Text("가격대")
                         }
                     }
                     
