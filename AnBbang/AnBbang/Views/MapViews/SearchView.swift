@@ -35,7 +35,7 @@ struct SearchView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {  // VStack을 왼쪽 정렬
+        VStack(alignment: .leading) {
             HStack(spacing: 5) {
                 Spacer(minLength: 3)
                 
@@ -69,44 +69,49 @@ struct SearchView: View {
                         .padding(.leading, 250)
                 }
             }
-            
-            if showDropdown {
-                VStack(alignment: .leading) {  // 드롭다운 메뉴도 왼쪽 정렬
-                    ForEach(imageOptions, id: \.image) { option in
-                        Button {
-                            selectedImage = option.image  // 선택된 이미지 업데이트
-                            selectedCategory = option.category  // 선택된 카테고리 업데이트
-                            withAnimation {
-                                showDropdown.toggle()  // 드롭다운 숨기기
+            .overlay(  // 드롭다운을 오버레이로 표시
+                VStack(alignment: .leading) {
+                    if showDropdown {
+                        VStack(alignment: .leading) {
+                            ForEach(imageOptions, id: \.image) { option in
+                                Button {
+                                    selectedImage = option.image  // 선택된 이미지 업데이트
+                                    selectedCategory = option.category  // 선택된 카테고리 업데이트
+                                    withAnimation {
+                                        showDropdown.toggle()  // 드롭다운 숨기기
+                                    }
+                                } label: {
+                                    HStack {
+                                        Image(systemName: option.image)
+                                            .resizable()
+                                            .frame(width: 20, height: 20)
+                                            .padding(5)
+                                        Text(option.category)
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal)
+                                    .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)  // 왼쪽 정렬
+                                    .background(Color(.systemGray6))
+                                    .cornerRadius(5)
+                                }
                             }
-                        } label: {
-                            HStack {
-                                Image(systemName: option.image)
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
-                                    .padding(5)
-                                Text(option.category)
-                                Spacer()
-                            }
-                            .padding(.horizontal)
-                            .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)  // 왼쪽 정렬
-                            .background(Color(.systemGray6))
-                            .cornerRadius(5)
                         }
+                        .frame(maxWidth: 150, alignment: .leading)
+                        .background(Color.white)
+                        .cornerRadius(5)
+                        .shadow(radius: 5)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                        .offset(y: 120)  // 버튼 아래로 드롭다운 위치 조정
+                        .zIndex(1)  // 드롭다운의 zIndex를 1로 설정하여 맨 앞에 표시
                     }
                 }
-                .frame(maxWidth: 150, alignment: .leading)  // 왼쪽에 고정
-                .background(Color.white)
-                .cornerRadius(5)
-                .shadow(radius: 5)
-                .transition(.opacity.combined(with: .move(edge: .top)))
-                .padding(.top, -8)  // 버튼과 드롭다운의 간격을 조정
-            }
+                .padding(.leading, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)  // 오버레이의 위치를 왼쪽으로 맞춤
+            )
         }
         .padding(.horizontal)
     }
 }
-
 
 #Preview {
     SearchView(searchText: .constant(""), category: "원룸", categoryImage: "house")

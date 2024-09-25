@@ -34,6 +34,7 @@ struct MyInfoView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
             // 프로필 사진 섹션
             Button(action: {
                 showingImagePicker = true
@@ -42,14 +43,14 @@ struct MyInfoView: View {
                     Image(uiImage: profileImage)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 120, height: 120)
+                        .frame(width: 80, height: 80)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.gray, lineWidth: 2))
                         .shadow(radius: 5)
                 } else {
                     Image(systemName: "person.circle.fill")
                         .resizable()
-                        .frame(width: 120, height: 120)
+                        .frame(width: 80, height: 80)
                         .foregroundColor(.gray)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.gray, lineWidth: 2))

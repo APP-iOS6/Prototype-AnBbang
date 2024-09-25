@@ -17,7 +17,7 @@ struct NotificationPromptView: View {
             
             // 알림 설정 메시지
             VStack {
-                Text("꼭 알림 받으세요")
+                Text("알림을 받으시면 좋아요")
                     .font(.system(size: 28, weight: .bold))
                     .padding()
                     

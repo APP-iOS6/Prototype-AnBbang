@@ -16,7 +16,7 @@ struct EstateMapView: View {
     @State private var showFilterSheet: Bool = false
     @State private var searchText: String = ""
     @State private var mapFilterSheetTitle: String = ""
-    @State private var currMap: ImageResource = .MapDummy._22PoliceStay
+    @State private var currMap: ImageResource = .MapDummy.defaultMap
     @State private var stayNumberMap: ImageResource? = .MapDummy.stayNumber
     @State private var filterSheetType: FilterSheetType = .protection
     @State private var selectedFilter: Int = 0
@@ -73,6 +73,7 @@ struct EstateMapView: View {
             VStack(alignment: .trailing, spacing: 10) {
                 SearchView(searchText: $searchText, category: category, categoryImage: categoryImage)
                     .padding(.top, 100)
+                    .zIndex(1)
                 
                 HStack(spacing: 10) {
                     RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 50, height: 30)) {
@@ -164,6 +165,14 @@ struct EstateMapView: View {
                 case .convenience:
                     Button("여성 피트니스 센터") {
                         currMap = .MapDummy.womensFitnessCenter
+                        showFilterSheet.toggle()
+                    }
+                    Button("안심택배") {
+                        currMap = .MapDummy._44DeliveryService
+                        showFilterSheet.toggle()
+                    }
+                    Button("빨래방") {
+                        currMap = .MapDummy._43Wash
                         showFilterSheet.toggle()
                     }
                     
