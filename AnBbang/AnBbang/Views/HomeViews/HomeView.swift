@@ -53,16 +53,14 @@ struct HomeView: View {
                     }
                     
                     Spacer()
-                        .frame(height: 20)
+                        .frame(height: 10)
                     
-                    Image("event")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 365)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    ADView()
+                    
+                    .frame(width: 365, height: 150)
                     
                     Spacer()
-                        .frame(height: 20)
+                        .frame(height: 10)
                     
                     HStack {
                         Text("이 근처 추천 매물")
