@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SafariServices
 
 struct MoreView: View {
     @State private var showLogoutAlert = false // 로그아웃 알림 표시 여부
@@ -15,30 +16,17 @@ struct MoreView: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    // 로그인된 경우, 프로필 아이콘과 로그아웃 버튼 표시
-                    HStack {
-                        Button(action: {
-                            showLogoutAlert = true // 로그아웃 알림 띄우기
-                        }) {
-                            HStack {
-                                Image(systemName: "person.circle") // 프로필 아이콘
-                                    .font(.largeTitle)
-                                    .foregroundColor(.black)
-                                Text("선녀의방") // 로그인된 사용자 닉네임
-                                    .font(.title3)
-                                    .foregroundColor(.black)
-                                
-                                Spacer()
-                            }
-                        }
-                        .alert(isPresented: $showLogoutAlert) {
-                            Alert(
-                                title: Text("로그아웃 하시겠습니까?"),
-                                primaryButton: .destructive(Text("로그아웃")) {
-                                    isLoggedOut = true // 로그아웃 상태로 전환
-                                },
-                                secondaryButton: .cancel(Text("취소"))
-                            )
+                    // 로그인된 경우, 프로필 아이콘 표시
+                    NavigationLink(destination: MyInfoView()) {
+                        HStack {
+                            Image(systemName: "person.circle") // 프로필 아이콘
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                            Text("선녀의방") // 로그인된 사용자 닉네임
+                                .font(.title3)
+                                .foregroundColor(.black)
+                            
+                            Spacer()
                         }
                     }
                     .padding(.top)
@@ -99,6 +87,7 @@ struct MoreView: View {
                     Divider() // 구분선
                     
                     Spacer()
+                    Spacer()
                     
                     // 리스트 항목들 (왼쪽 정렬)
                     VStack(alignment: .leading) {
@@ -110,7 +99,7 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 3)
                         
                         NavigationLink(destination: ReportView()) {
                             HStack {
@@ -120,7 +109,7 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 3)
                         
                         NavigationLink(destination: EventView()) {
                             HStack {
@@ -130,7 +119,7 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 3)
                         
                         NavigationLink(destination: NewsView()) {
                             HStack {
@@ -140,13 +129,26 @@ struct MoreView: View {
                                 Spacer()
                             }
                         }
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 3)
                         
-                        Spacer()
+                        // Safari 웹브라우저로 직접 연결되는 링크
+                        Button(action: {
+                            if let url = URL(string: "https://sexoffender.go.kr/m6s7.nsc") {
+                                UIApplication.shared.open(url)
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "safari") // Safari 아이콘
+                                Text(" 성범죄자 조회")
+                                    .foregroundColor(.black)
+                                Spacer()
+                            }
+                        }
+                        .padding(.vertical, 3)
+                        
                         Spacer()
                         
                         Divider()
-                        
                         
                         // 현재 앱 버전 정보
                         HStack {
@@ -165,9 +167,6 @@ struct MoreView: View {
                         .padding(.vertical)
                         
                         Divider()
-                        
-                        Spacer()
-                        Spacer()
                         
                         // 약관 및 회사 소개
                         VStack {
@@ -199,6 +198,42 @@ struct MoreView: View {
                             .padding(.vertical, 3)
                         }
                         .font(.subheadline)
+                    }
+                    
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    
+                    // 로그아웃 버튼
+                    Button(action: {
+                        showLogoutAlert = true
+                    }) {
+                        Text("로그아웃")
+                            .font(.subheadline)
+                            .foregroundColor(.red)
+                    }
+                    .padding(.bottom, 20) // Tab Bar 위에 충분한 공간을 추가
+                    .alert(isPresented: $showLogoutAlert) {
+                        Alert(
+                            title: Text("로그아웃 하시겠습니까?"),
+                            primaryButton: .destructive(Text("로그아웃")) {
+                                isLoggedOut = true // 로그아웃 상태로 전환
+                            },
+                            secondaryButton: .cancel(Text("취소"))
+                        )
                     }
                 }
                 .padding()
