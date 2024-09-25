@@ -171,21 +171,20 @@ struct EstateMapView: View {
             .presentationDetents([.medium])
         }
         .sheet(isPresented: $shouldShowHomeList) {
-            HStack {
-                Spacer()
-                
-                Picker("filter", selection: $selectedFilter) {
-                    Text("가격 순")
-                        .tag(0)
-                    Text("여성 전용")
-                        .tag(1)
-                }
-                .pickerStyle(.menu)
-            }
-            .padding(.leading, 10)
-            .padding(.top, 10)
-            
             NavigationStack {
+                HStack {
+                    Spacer()
+                    
+                    Picker("filter", selection: $selectedFilter) {
+                        Text("가격 순")
+                            .tag(0)
+                        Text("여성 전용")
+                            .tag(1)
+                    }
+                    .pickerStyle(.menu)
+                }
+                .padding(.leading, 10)
+                .padding(.top, 10)
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(residenceStore.residences.indices) { index in

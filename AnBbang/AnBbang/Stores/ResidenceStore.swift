@@ -22,7 +22,7 @@ class ResidenceStore: ObservableObject {
                 rating: 4.9),
             quickInfo: QuickInfo(
                 address: "경상북도 경산시 압량읍",
-                monthlyRent: "월세 500/30",
+                monthlyRent: "월세 30/500",
                 maintenanceCost: "관리비 7만원"
             ),
             maintenanceCost: MaintenanceCost(
@@ -68,7 +68,7 @@ class ResidenceStore: ObservableObject {
                 rating: 4.9),
             quickInfo: QuickInfo(
                 address: "경상북도 경산시 압량읍",
-                monthlyRent: "월세 1000/45",
+                monthlyRent: "월세 45/1000",
                 maintenanceCost: "관리비 7만원"
             ),
             maintenanceCost: MaintenanceCost(

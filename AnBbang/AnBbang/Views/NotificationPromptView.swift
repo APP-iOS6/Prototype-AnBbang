@@ -58,7 +58,7 @@ struct NotificationPromptView: View {
         }
         .alert(isPresented: $showAlert) {
             Alert(
-                title: Text("'안방'에서 알림을 보내고자 합니다.'"),
+                title: Text("'안방'에서 알림을 보내고자 합니다."),
                 message: Text("경고, 사운드 및 아이콘 배지가 알림에 포함될 수 있습니다. 설정에서 이를 구성할 수 있습니다."),
                 primaryButton: .default(Text("허용"), action: {
                     navigateToMain = true // 허용을 눌러도 MainView로 이동

@@ -84,5 +84,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    MainView()
+        .environment(ResidenceStore())
+        .environment(RoomReviewStore())
 }

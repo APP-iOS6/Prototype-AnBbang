@@ -36,7 +36,7 @@ struct ResidenceInfoView: View {
             
             ScrollView {
                 HStack {
-                    Text(residence.registNumber)
+                    Text("등록번호 \(residence.registNumber)")
                         .padding(4)
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -60,7 +60,6 @@ struct ResidenceInfoView: View {
                     } label: {
                         Text("리뷰 보기 ＞")
                             .foregroundStyle(.accent)
-                            .font(.caption)
                             .fontWeight(.bold)
                             .frame(width: 380, alignment: .trailing)
                     }
@@ -104,19 +103,19 @@ struct ResidenceInfoView: View {
                     Divider()
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("거실 넓은 최신축")
+                        Text("- 거실 넓은 최신축")
                             .font(.headline)
-                        Text("10.15m²")
+                        Text("- 10.15m²")
                             .fontWeight(.bold)
-                        Text("분리형 원룸 (욕실 1개)")
-                        Text("3층/4층")
-                        Text("즉시 입주 가능")
-                        Text("총 주차 대수 5대")
-                        Text("남동향")
-                        Text("엘리베이터 없음")
-                        Text("단독주택")
-                        Text("20190618 준공")
-                        Text("경산시 압량읍 부적리")
+                        Text("- 분리형 원룸 (욕실 1개)")
+                        Text("- 3층/4층")
+                        Text("- 즉시 입주 가능")
+                        Text("- 총 주차 대수 5대")
+                        Text("- 남동향")
+                        Text("- 엘리베이터 없음")
+                        Text("- 단독주택")
+                        Text("- 20190618 준공")
+                        Text("- 경산시 압량읍 부적리")
                     }
                     .padding(.top, 15)
                     .padding(.bottom, 15)
@@ -188,7 +187,7 @@ struct ResidenceInfoView: View {
                                 Text(key)
                                     .frame(width: 100)
                                     .padding(10)
-                                    .background(Color.yellow)
+                                    .background(Color.accent)
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                                     .foregroundStyle(.white)
                                     .fontWeight(.bold)
@@ -198,7 +197,7 @@ struct ResidenceInfoView: View {
                     .sheet(isPresented: $isPresented) {
                         CheckView(imageName: $imageName)
                     }
-                    .padding()
+                    .padding(10)
                 }
             }
             
