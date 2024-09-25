@@ -12,6 +12,7 @@ struct RoomReview: Identifiable {
     var userName: String
     var userImage: String
     var reviewText: String
+    var roomImages: [String] = []
     var reviewDate: String
     var rating: Int
 }

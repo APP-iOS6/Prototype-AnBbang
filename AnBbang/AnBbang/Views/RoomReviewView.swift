@@ -55,6 +55,17 @@ struct RoomReviewView: View {
                                     .font(.body)
                                     .padding(.top, 5)
                                 
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(review.roomImages, id: \.self) { image in
+                                            Image(image)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 80, height: 80)
+                                        }
+                                    }
+                                }
+                                
                                 HStack {
                                     ForEach(0..<5) { star in
                                         Image(systemName: star < review.rating ? "star.fill" : "star")

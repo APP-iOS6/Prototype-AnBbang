@@ -58,7 +58,7 @@ struct ResidenceInfoView: View {
                     NavigationLink {
                         RoomReviewView(residence: $residence)
                     } label: {
-                        Text("리뷰 보기 ＞")
+                        Text("사용자 리뷰 보기 ＞")
                             .foregroundStyle(.accent)
                             .fontWeight(.bold)
                             .frame(width: 380, alignment: .trailing)
