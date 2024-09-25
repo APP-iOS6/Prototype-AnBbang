@@ -18,11 +18,7 @@ struct RoomReviewView: View {
         VStack {
             // 방 정보 섹션
             VStack(alignment: .center, spacing: 10) {
-                Image(residence.images[0])
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 150, alignment: .center)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                RoomImagesView(roomImages: residence.images)
                 
                 Text(residence.subInfo)
                     .font(.subheadline)
@@ -31,53 +27,96 @@ struct RoomReviewView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-            .padding()
             
             Divider()
             
             // 리뷰 목록
-            List(reviewStore.reviews) { review in
-                HStack(alignment: .top) {
-                    Image(systemName: review.userImage)
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .clipShape(Circle())
-                        .padding(.trailing, 10)
-                    
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(review.userName)
-                                .font(.headline)
-                            Spacer()
-                            Text(review.reviewDate)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        
-                        Text(review.reviewText)
-                            .font(.body)
-                            .padding(.top, 5)
-                        
-                        HStack {
-                            ForEach(0..<5) { star in
-                                Image(systemName: star < review.rating ? "star.fill" : "star")
-                                    .foregroundColor(star < review.rating ? .yellow : .gray)
+            ScrollView {
+                VStack {
+                    ForEach(reviewStore.reviews) { review in
+                        HStack(alignment: .top) {
+                            Image(systemName: review.userImage)
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                                .padding(.trailing, 10)
+                            
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(review.userName)
+                                        .font(.headline)
+                                    Spacer()
+                                    Text(review.reviewDate)
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                Text(review.reviewText)
+                                    .font(.body)
+                                    .padding(.top, 5)
+                                
+                                HStack {
+                                    ForEach(0..<5) { star in
+                                        Image(systemName: star < review.rating ? "star.fill" : "star")
+                                            .foregroundColor(star < review.rating ? .yellow : .gray)
+                                    }
+                                }
+                                .padding(.top, 5)
                             }
                         }
-                        .padding(.top, 5)
+                        .padding(.vertical, 10)
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
+                        
+                        Divider()
                     }
+                    
                 }
-                .padding(.vertical, 10)
             }
-            .listStyle(.inset)
+           
+            
+//            List(reviewStore.reviews) { review in
+//                HStack(alignment: .top) {
+//                    Image(systemName: review.userImage)
+//                        .resizable()
+//                        .frame(width: 50, height: 50)
+//                        .clipShape(Circle())
+//                        .padding(.trailing, 10)
+//                    
+//                    VStack(alignment: .leading) {
+//                        HStack {
+//                            Text(review.userName)
+//                                .font(.headline)
+//                            Spacer()
+//                            Text(review.reviewDate)
+//                                .font(.subheadline)
+//                                .foregroundColor(.gray)
+//                        }
+//                        
+//                        Text(review.reviewText)
+//                            .font(.body)
+//                            .padding(.top, 5)
+//                        
+//                        HStack {
+//                            ForEach(0..<5) { star in
+//                                Image(systemName: star < review.rating ? "star.fill" : "star")
+//                                    .foregroundColor(star < review.rating ? .yellow : .gray)
+//                            }
+//                        }
+//                        .padding(.top, 5)
+//                    }
+//                }
+//                .padding(.vertical, 10)
+//            }
+//            .listStyle(.plain)
         }
-        .frame(width: 380)
         .navigationTitle("방 리뷰")
         .modifier(BackButtonModifier())
     }
 }
-//
-//#Preview {
-//    RoomReviewView()
-//        .environment(RoomReviewStore())
-//}
+
+#Preview {
+    MainView()
+        .environment(ResidenceStore())
+        .environment(RoomReviewStore())
+}
