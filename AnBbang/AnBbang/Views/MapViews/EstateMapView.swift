@@ -20,6 +20,7 @@ struct EstateMapView: View {
     @State private var stayNumberMap: ImageResource? = .MapDummy.stayNumber
     @State private var filterSheetType: FilterSheetType = .protection
     @State private var selectedFilter: Int = 0
+    @State private var showFullScreen: Bool = false
     var category: String = ""
     var categoryImage: String = ""
     
@@ -81,12 +82,13 @@ struct EstateMapView: View {
                             Image(systemName: "switch.2")
                         }
                     }
+                    .padding(.leading, 15)
                     
-                    RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 120, height: 30)) {
+                    RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 85, height: 30)) {
                         Button {
                             //scale -= 0.1
                         } label: {
-                            Text("거래유형/가격")
+                            Text("가격대")
                         }
                     }
                     
@@ -192,20 +194,32 @@ struct EstateMapView: View {
                         .tag(1)
                 }
                 .pickerStyle(.menu)
+                
+                Button {
+                    showFullScreen.toggle()
+                } label: {
+                    Text("더보기 ＞")
+                        .foregroundStyle(.accent)
+                }
+                .padding(.trailing, 10)
             }
-            .padding(.leading, 10)
             .padding(.top, 10)
             
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(residenceStore.residences.indices) { index in
                         ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
-                            .padding(.leading, 20)
                     }
                 }
             }
+            .padding(.leading, 10)
             .presentationDetents([.fraction(0.4)])
             .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
+            .fullScreenCover(isPresented: $showFullScreen) {
+                NavigationStack {
+                    MoreRoomsView()
+                }
+            }
         }
         .ignoresSafeArea()
         .modifier(BackButtonModifier())
@@ -216,4 +230,5 @@ struct EstateMapView: View {
     //EstateMapView(residenceStore: ResidenceStore())
     MainView()
         .environment(ResidenceStore())
+        .environment(RoomReviewStore())
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MoreRoomsView: View {
     @State var isFavorite: Bool = false
+    
     var body: some View {
         RoomListView(isFavorite: $isFavorite)
     }

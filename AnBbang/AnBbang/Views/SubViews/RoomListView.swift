@@ -30,7 +30,7 @@ struct RoomListView: View {
                     }
                 }
             }
-            .navigationTitle(isFavorite ? "관심목록" : "이 근처 추천 매물")
+            .navigationTitle(isFavorite ? "관심목록" : "더보기")
             .navigationBarTitleDisplayMode(.inline)
             .modifier(BackButtonModifier())
         }
