@@ -16,7 +16,7 @@ struct HomeView: View {
                     Image("anbbangLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 365, height: 70, alignment: .leading)
+                        .frame(width: 360, height: 70, alignment: .leading)
                     
                     Spacer()
                         .frame(height: 20)
@@ -35,7 +35,7 @@ struct HomeView: View {
                                 ResidenceCell(residence: Residence.oneRoom.rawValue, image: "house.fill")
                             }
                         }
-                        .padding(.bottom, 5)
+                        .padding(.bottom, 7)
                         
                         GridRow {
                             NavigationLink {
@@ -64,9 +64,19 @@ struct HomeView: View {
                     Spacer()
                         .frame(height: 20)
                     
-                    Text("이 근처 추천 매물")
-                        .frame(width: 365, alignment: .leading)
-                        .fontWeight(.bold)
+                    HStack {
+                        Text("이 근처 추천 매물")
+                            .frame(width: 310, alignment: .leading)
+                            .fontWeight(.bold)
+                        
+                        NavigationLink {
+                            MoreRoomsView()
+                        } label: {
+                            Text("더보기 ＞")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                    }
                     
                     ScrollView(.horizontal) {
                         HStack {
