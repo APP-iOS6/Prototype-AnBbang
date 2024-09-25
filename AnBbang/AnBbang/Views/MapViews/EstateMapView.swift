@@ -82,12 +82,13 @@ struct EstateMapView: View {
                             Image(systemName: "switch.2")
                         }
                     }
+                    .padding(.leading, 15)
                     
-                    RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 120, height: 30)) {
+                    RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 85, height: 30)) {
                         Button {
                             //scale -= 0.1
                         } label: {
-                            Text("거래유형/가격")
+                            Text("가격대")
                         }
                     }
                     
