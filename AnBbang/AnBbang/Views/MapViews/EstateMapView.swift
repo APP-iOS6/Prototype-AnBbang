@@ -82,7 +82,7 @@ struct EstateMapView: View {
                         }
                     }
                     
-                    RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 120, height: 30)) {
+                    RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 85, height: 30)) {
                         Button {
                             //scale -= 0.1
                         } label: {
