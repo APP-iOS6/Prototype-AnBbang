@@ -73,6 +73,7 @@ struct EstateMapView: View {
             VStack(alignment: .trailing, spacing: 10) {
                 SearchView(searchText: $searchText, category: category, categoryImage: categoryImage)
                     .padding(.top, 100)
+                    .zIndex(1)
                 
                 HStack(spacing: 10) {
                     RoundedRectangleWithShadowBackground(cornerRadius: 30, frame: CGSize(width: 50, height: 30)) {

@@ -101,10 +101,11 @@ struct SearchView: View {
                         .cornerRadius(5)
                         .shadow(radius: 5)
                         .transition(.opacity.combined(with: .move(edge: .top)))
-                        .offset(y: 160)  // 버튼 아래로 드롭다운 위치 조정
+                        .offset(y: 120)  // 버튼 아래로 드롭다운 위치 조정
                         .zIndex(1)  // 드롭다운의 zIndex를 1로 설정하여 맨 앞에 표시
                     }
                 }
+                .padding(.leading, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)  // 오버레이의 위치를 왼쪽으로 맞춤
             )
         }
