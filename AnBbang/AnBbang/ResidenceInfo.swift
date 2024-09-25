@@ -29,7 +29,7 @@ struct RealEstateAgent {
 }
 
 struct QuickInfo {
-    var adress: String
+    var address: String
     var monthlyRent: String
     var maintenanceCost: String
 }

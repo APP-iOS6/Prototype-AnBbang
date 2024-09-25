@@ -109,13 +109,16 @@ struct EstateMapView: View {
                             
                             Divider()
                                 .frame(width: 50)
+                            
                             Button("편의") {
                                 mapFilterSheetTitle = "편의"
                                 filterSheetType = .convenience
                                 showFilterSheet.toggle()
                             }
+                            
                             Divider()
                                 .frame(width: 50)
+                            
                             Button("숨김") {
                                 if stayNumberMap != nil {
                                     stayNumberMap = nil
@@ -198,6 +201,9 @@ struct EstateMapView: View {
         }
         .ignoresSafeArea()
         .modifier(BackButtonModifier())
+        .onDisappear {
+            shouldShowHomeList = false
+        }
     }
 }
 

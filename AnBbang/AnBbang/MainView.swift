@@ -220,4 +220,5 @@ struct ResidenceDetailContent: View {
 #Preview {
     MainView()
         .environment(ResidenceStore())
+        .environment(RoomReviewStore())
 }

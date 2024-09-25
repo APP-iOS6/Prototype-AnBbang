@@ -21,7 +21,7 @@ class ResidenceStore: ObservableObject {
                 name: "LAB 5 공인중개사사무소",
                 rating: 4.9),
             quickInfo: QuickInfo(
-                adress: "경상북도 경산시 압량읍",
+                address: "경상북도 경산시 압량읍",
                 monthlyRent: "월세 500/30",
                 maintenanceCost: "관리비 7만원"
             ),
@@ -67,7 +67,7 @@ class ResidenceStore: ObservableObject {
                 name: "LAB 5 공인중개사사무소",
                 rating: 4.9),
             quickInfo: QuickInfo(
-                adress: "경상북도 경산시 압량읍",
+                address: "경상북도 경산시 압량읍",
                 monthlyRent: "월세 1000/45",
                 maintenanceCost: "관리비 7만원"
             ),
@@ -114,7 +114,7 @@ class ResidenceStore: ObservableObject {
                     rating: 4.8
                 ),
                 quickInfo: QuickInfo(
-                    adress: "서울특별시 마포구",
+                    address: "서울특별시 마포구",
                     monthlyRent: "월세 80/50",
                     maintenanceCost: "관리비 5만원"
                 ),
@@ -150,7 +150,7 @@ class ResidenceStore: ObservableObject {
                     rating: 4.7
                 ),
                 quickInfo: QuickInfo(
-                    adress: "부산광역시 해운대구",
+                    address: "부산광역시 해운대구",
                     monthlyRent: "월세 120/400",
                     maintenanceCost: "관리비 3만원"
                 ),
@@ -184,7 +184,7 @@ class ResidenceStore: ObservableObject {
                     rating: 5.0
                 ),
                 quickInfo: QuickInfo(
-                    adress: "경기도 성남시 분당구",
+                    address: "경기도 성남시 분당구",
                     monthlyRent: "월세 90/300",
                     maintenanceCost: "관리비 7만원"
                 ),
@@ -217,7 +217,7 @@ class ResidenceStore: ObservableObject {
                     rating: 4.6
                 ),
                 quickInfo: QuickInfo(
-                    adress: "인천광역시 남동구",
+                    address: "인천광역시 남동구",
                     monthlyRent: "월세 110/350만원",
                     maintenanceCost: "관리비 6만원"
                 ),
@@ -250,7 +250,7 @@ class ResidenceStore: ObservableObject {
                     rating: 4.9
                 ),
                 quickInfo: QuickInfo(
-                    adress: "대전광역시 서구",
+                    address: "대전광역시 서구",
                     monthlyRent: "월세 75/250",
                     maintenanceCost: "관리비 4만원"
                 ),

@@ -68,6 +68,7 @@ struct NotificationPromptView: View {
                 })
             )
         }
+        .modifier(BackButtonModifier())
     }
 }
 

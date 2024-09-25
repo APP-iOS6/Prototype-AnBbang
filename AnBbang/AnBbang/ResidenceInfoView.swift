@@ -29,7 +29,7 @@ struct ResidenceInfoView: View {
                 }
                 .padding(.trailing, 20)
                 .padding(.top, 90)
-                .zIndex(1) 
+                .zIndex(1)
             }
             .ignoresSafeArea()
             .frame(maxHeight: 150)
@@ -55,6 +55,20 @@ struct ResidenceInfoView: View {
                 Divider()
                 
                 HStack {
+                    NavigationLink {
+                        RoomReviewView(residence: $residence)
+                    } label: {
+                        Text("리뷰 보기 ＞")
+                            .foregroundStyle(.accent)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .frame(width: 380, alignment: .trailing)
+                    }
+                }
+                
+                Divider()
+                
+                HStack {
                     Image(systemName: "person.crop.circle")
                     
                     Text(residence.realEstateAgent.name)
@@ -76,7 +90,7 @@ struct ResidenceInfoView: View {
                 
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading, spacing: 10) {
-                        Text(residence.quickInfo.adress)
+                        Text(residence.quickInfo.address)
                             .font(.caption)
                         Text(residence.quickInfo.monthlyRent)
                             .fontWeight(.bold)
@@ -114,7 +128,7 @@ struct ResidenceInfoView: View {
                             .fontWeight(.bold)
                             .font(.title3)
                         Text(residence.maintenanceCost.detail)
-                        .lineSpacing(10)
+                            .lineSpacing(10)
                     }
                     .padding(.top, 15)
                     .padding(.bottom, 15)
@@ -140,13 +154,13 @@ struct ResidenceInfoView: View {
                     }
                     .padding(.top, 15)
                     .padding(.bottom, 15)
-                   
+                    
                     Divider()
                     
                     Text(residence.roomDescription)
-                    .lineSpacing(5)
-                    .padding(.top, 15)
-                    .padding(.bottom, 15)
+                        .lineSpacing(5)
+                        .padding(.top, 15)
+                        .padding(.bottom, 15)
                 }
                 .padding(.leading, 10)
                 
@@ -209,8 +223,6 @@ struct ResidenceInfoView: View {
                 }
             }
             .padding(10)
-            
-            
         }
         .onAppear {
             isFavorite = residenceStore.getFavorites(id: residence.id)
@@ -234,4 +246,5 @@ struct CheckView: View {
 #Preview {
     MainView()
         .environment(ResidenceStore())
+        .environment(RoomReviewStore())
 }

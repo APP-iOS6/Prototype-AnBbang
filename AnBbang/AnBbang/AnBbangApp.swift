@@ -13,6 +13,7 @@ struct AnBbangApp: App {
         WindowGroup {
             LoginView()
                 .environment(ResidenceStore())
+                .environment(RoomReviewStore())
         }
     }
 }
