@@ -15,21 +15,25 @@ struct ResidenceCell: View {
         VStack {
             Image(systemName: image)
                 .padding(.top, 20)
+                .font(.largeTitle)
             Text("\(residence)")
                 .frame(minWidth: 175, minHeight: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .font(.headline)
+                .font(.title3)
+                .fontWeight(.bold)
                 .foregroundStyle(.accent)
         }
         .overlay {
             RoundedRectangle(cornerRadius: 5)
                 .stroke(lineWidth: 1)
                 .foregroundStyle(.gray)
-                .frame(minHeight: 100)
+                .frame(minHeight: 130)
         }
     }
 }
 
-//#Preview {
-//    ResidenceCell()
-//}
+#Preview {
+    MainView()
+        .environment(ResidenceStore())
+        .environment(RoomReviewStore())
+}
