@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NotificationPromptView: View {
-    @Bindable var localNotificationManager: LocalNotificationManager
+    @Bindable var localNotificationManager: LocalNotificationManager = LocalNotificationManager.shared
     @State private var showAlert = false
     @State private var navigateToMain = false
     
@@ -16,7 +16,7 @@ struct NotificationPromptView: View {
         VStack {
             Spacer()
             
-            if(!LocalNotificationManager.shared.isSelectedNotificationSetting) {
+            if(!localNotificationManager.isSetNotificationAuth) {
                 // 알림 설정 메시지
                 VStack {
                     Text("알림을 받으시면 좋아요")
@@ -51,7 +51,7 @@ struct NotificationPromptView: View {
             }
             
             // NavigationLink로 MainView 이동 제어
-            NavigationLink(destination: MainView(), isActive: $localNotificationManager.isSelectedNotificationSetting) {
+            NavigationLink(destination: MainView(), isActive: $localNotificationManager.isSetNotificationAuth) {
                 EmptyView()
             }
         }
@@ -62,5 +62,5 @@ struct NotificationPromptView: View {
 }
 
 #Preview {
-    NotificationPromptView(localNotificationManager: LocalNotificationManager.shared)
+    NotificationPromptView()
 }
