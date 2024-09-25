@@ -98,7 +98,6 @@ struct ResidenceInfoView: View {
                         }
                     }
                     
-                    
                     Divider()
                     
                     VStack(alignment: .leading, spacing: 10) {
