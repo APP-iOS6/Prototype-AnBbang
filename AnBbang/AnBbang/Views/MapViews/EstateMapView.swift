@@ -9,6 +9,7 @@ import SwiftUI
 import Observation
 
 struct EstateMapView: View {
+    @Environment(\.dismiss) var dismiss
     @Bindable var residenceStore: ResidenceStore
     @State private var currScale: CGFloat = 0.0
     @State private var scale: CGFloat = 1.0
@@ -223,7 +224,20 @@ struct EstateMapView: View {
             }
         }
         .ignoresSafeArea()
-        .modifier(BackButtonModifier())
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden() // 기존의 back button 숨김 처리
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button { // 새로운 back button 설정
+                    dismiss()
+                } label: {
+                    Text("＜")
+                        .fontWeight(.bold)
+                        .font(.title)
+                        .foregroundStyle(.black)
+                }
+            }
+        }
     }
 }
 

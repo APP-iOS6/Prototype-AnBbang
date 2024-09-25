@@ -39,9 +39,9 @@ struct ResidenceInfoView: View {
                 HStack {
                     Text("등록번호 \(residence.registNumber)")
                         .padding(4)
-                        .background(Color.black)
+                        .background(Color(UIColor.label))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color(.systemBackground))
                         .font(.caption)
                         .fontWeight(.bold)
                     

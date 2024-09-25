@@ -86,18 +86,20 @@ struct SearchView: View {
                                             .resizable()
                                             .frame(width: 20, height: 20)
                                             .padding(5)
+                                            .foregroundStyle(Color(UIColor.label))
                                         Text(option.category)
+                                            .foregroundStyle(Color(UIColor.label))
                                         Spacer()
                                     }
                                     .padding(.horizontal)
                                     .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)  // 왼쪽 정렬
-                                    .background(Color(.systemGray6))
+                                    .background(.accent)
                                     .cornerRadius(5)
                                 }
                             }
                         }
                         .frame(maxWidth: 150, alignment: .leading)
-                        .background(Color.white)
+                        .background(Color(UIColor.clear))
                         .cornerRadius(5)
                         .shadow(radius: 5)
                         .transition(.opacity.combined(with: .move(edge: .top)))

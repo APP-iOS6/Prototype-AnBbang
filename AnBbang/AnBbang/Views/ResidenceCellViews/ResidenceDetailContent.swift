@@ -53,8 +53,8 @@ struct ResidenceDetailContent: View {
                 Text(residence.subInfo)
                     .font(.caption)
             }
+            .foregroundStyle(Color(UIColor.label))
             .frame(width: 130, height: 100, alignment: .leading)
-            .foregroundStyle(.black)
         } else {
             VStack(alignment: .leading, spacing: 15) {
                 Text(residence.quickInfo.monthlyRent)
@@ -67,8 +67,8 @@ struct ResidenceDetailContent: View {
                 
                 Spacer()
             }
+            .foregroundStyle(Color(UIColor.label))
             .frame(width: 200, height: 130, alignment: .leading)
-            .foregroundStyle(.black)
             .padding(.leading, -10)
         }
     }
