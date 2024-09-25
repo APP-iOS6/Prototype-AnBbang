@@ -32,92 +32,96 @@ struct LoginView: View {
                     Text("다양한 서비스를 이용하세요.")
                         .font(.system(size: 22, weight: .bold))
                         .foregroundColor(.black)
+                    
+                    Text("(본 서비스는 여성사용자만 가입이 가능합니다.)")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.gray)
+                        .padding(.top, 2)
                 }
                 .multilineTextAlignment(.center)
-                .padding(.bottom, 30)
+                .padding(.bottom, 20)
                 
-                // 카카오 로그인 버튼
-                NavigationLink(destination: NotificationPromptView()) {
-                    HStack {
-                        Image("kakaoLogo")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                        Text("카카오톡으로 시작")
-                            .font(.system(size: 16))
+                // 소셜 로그인 버튼 섹션
+                VStack(spacing: 15) {
+                    // 카카오 로그인 버튼
+                    NavigationLink(destination: NotificationPromptView()) {
+                        HStack {
+                            Image("kakaoLogo")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                            Text("카카오톡으로 시작")
+                                .font(.system(size: 16))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(8)
+                        .background(Color.yellow)
+                        .foregroundColor(.black)
+                        .cornerRadius(100)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(8)
-                    .background(Color.yellow)
-                    .foregroundColor(.black)
-                    .cornerRadius(100)
-                }
-                .frame(height: 50)
-                .padding(.horizontal, 30)
-                
-                // Google 로그인 버튼
-                NavigationLink(destination: NotificationPromptView()) {
-                    HStack {
-                        Image("googleLogo")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                        Text("Google로 시작")
-                            .font(.system(size: 16))
+                    .frame(height: 50)
+                    .padding(.horizontal, 30)
+                    
+                    // Google 로그인 버튼
+                    NavigationLink(destination: NotificationPromptView()) {
+                        HStack {
+                            Image("googleLogo")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                            Text("Google로 시작")
+                                .font(.system(size: 16))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(8)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 100)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(8)
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 100)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-                }
-                .frame(height: 50)
-                .padding(.horizontal, 30)
-                
-                
-                // Apple 로그인 버튼
-                NavigationLink(destination: NotificationPromptView()) {
-                    HStack {
-                        Image(systemName: "applelogo")
-                            .resizable()
-                            .frame(width: 20, height: 24)
-                        Text("Apple로 등록")
-                            .font(.system(size: 16))
+                    .frame(height: 50)
+                    .padding(.horizontal, 30)
+                    
+                    // Apple 로그인 버튼
+                    NavigationLink(destination: NotificationPromptView()) {
+                        HStack {
+                            Image(systemName: "applelogo")
+                                .resizable()
+                                .frame(width: 20, height: 24)
+                            Text("Apple로 등록")
+                                .font(.system(size: 16))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(8)
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(100)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(8)
-                    .background(Color.black)
-                    .foregroundColor(.white)
-                    .cornerRadius(100)
-                }
-                .frame(height: 50)
-                .padding(.horizontal, 30)
-                
-                
-                // Facebook 로그인 버튼
-                NavigationLink(destination: NotificationPromptView()) {
-                    HStack {
-                        Image("facebookLogo")
-                            .resizable()
-                            .frame(width: 35, height: 24)
-                        Text("Facebook으로 시작")
-                            .font(.system(size: 16))
+                    .frame(height: 50)
+                    .padding(.horizontal, 30)
+                    
+                    // Facebook 로그인 버튼
+                    NavigationLink(destination: NotificationPromptView()) {
+                        HStack {
+                            Image("facebookLogo")
+                                .resizable()
+                                .frame(width: 35, height: 24)
+                            Text("Facebook으로 시작")
+                                .font(.system(size: 16))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(8)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 100)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(8)
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 100)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
+                    .frame(height: 50)
+                    .padding(.horizontal, 30)
                 }
-                .frame(height: 50)
-                .padding(.horizontal, 30)
-                
-                
-                Spacer()
+                .padding(.bottom, 20)
                 
                 // 이메일로 로그인 링크
                 NavigationLink(destination: NotificationPromptView()) {
@@ -126,13 +130,32 @@ struct LoginView: View {
                         .foregroundColor(.gray)
                         .padding(.bottom, 20)
                 }
+                
+                Spacer()
+                
+                // 공인중개사로 로그인 버튼
+                NavigationLink(destination: NotificationPromptView()) {
+                    HStack {
+                        Text("공인중개사로 로그인")
+                            .font(.system(size: 16, weight: .bold))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(12)
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(100)
+                    .padding(.horizontal, 30)
+                }
+                .frame(height: 50)
+                .padding(.top, 10)
+                
+                Spacer()
             }
             .navigationBarBackButtonHidden()
             .background(Color.white.edgesIgnoringSafeArea(.all))
         }
     }
 }
-
 
 #Preview {
     LoginView()
