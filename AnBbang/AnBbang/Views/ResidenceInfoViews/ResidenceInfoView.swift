@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResidenceInfoView: View {
+    @EnvironmentObject var roomReviewStore: RoomReviewStore
     @EnvironmentObject var residenceStore: ResidenceStore
     @Binding var residence: ResidenceInfo
     @State var isFavorite: Bool = false
@@ -54,51 +55,49 @@ struct ResidenceInfoView: View {
                 
                 Divider()
                 
-                HStack {
-                    NavigationLink {
-                        RoomReviewView(residence: $residence)
-                    } label: {
-                        Text("사용자 리뷰 보기 ＞")
-                            .foregroundStyle(.accent)
-                            .fontWeight(.bold)
-                            .frame(width: 380, alignment: .trailing)
-                    }
-                }
-                
-                Divider()
-                
-                HStack {
-                    Image(systemName: "person.crop.circle")
-                    
-                    Text(residence.realEstateAgent.name)
-                    
-                    Spacer()
-                    
-                    VStack {
-                        Image(systemName: "star.fill")
-                        
-                        let stringRating = String(format: "%.1f", residence.realEstateAgent.rating)
-                        
-                        Text(stringRating)
-                    }
-                }
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
-                
-                Divider()
-                
                 VStack(alignment: .leading) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(residence.quickInfo.address)
-                            .font(.caption)
-                        Text(residence.quickInfo.monthlyRent)
-                            .fontWeight(.bold)
-                            .font(.title2)
-                        Text(residence.quickInfo.maintenanceCost)
-                            .font(.caption)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(residence.quickInfo.address)
+                                .font(.caption)
+                            Text(residence.quickInfo.monthlyRent)
+                                .fontWeight(.bold)
+                                .font(.title2)
+                            Text(residence.quickInfo.maintenanceCost)
+                                .font(.caption)
+                        }
+                        .padding(.top, 15)
+                        .padding(.bottom, 15)
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .trailing) {
+                            NavigationLink {
+                                RoomReviewView(residence: $residence)
+                            } label: {
+                                VStack(spacing: 5) {
+                                    Image(systemName: "star.fill")
+                                        .foregroundStyle(.yellow)
+                                        .fontWeight(.bold)
+                                        .frame(width: 110, alignment: .trailing)
+                                        .padding(.trailing, 15)
+                                    
+                                    let stringRating = String(format: "%.1f", roomReviewStore.calculateAverageRating())
+                                    
+                                    Text(stringRating)
+                                        .foregroundStyle(.accent)
+                                        .fontWeight(.bold)
+                                        .frame(width: 110, alignment: .trailing)
+                                        .padding(.trailing, 15)
+                                    
+                                    Text("사용자 리뷰 보기 ＞")
+                                        .foregroundStyle(.accent)
+                                        .fontWeight(.bold)
+                                }
+                            }
+                        }
                     }
-                    .padding(.top, 15)
-                    .padding(.bottom, 15)
+                    
                     
                     Divider()
                     
@@ -160,6 +159,26 @@ struct ResidenceInfoView: View {
                         .lineSpacing(5)
                         .padding(.top, 15)
                         .padding(.bottom, 15)
+                    
+                    Divider()
+                    
+                    HStack {
+                        Image(systemName: "person.crop.circle")
+                        
+                        Text(residence.realEstateAgent.name)
+                        
+                        Spacer()
+                        
+                        VStack {
+                            Image(systemName: "star.fill")
+                                .foregroundStyle(.yellow)
+                            
+                            let stringRating = String(format: "%.1f", residence.realEstateAgent.rating)
+                            
+                            Text(stringRating)
+                        }
+                    }
+                    .padding(.trailing, 10)
                 }
                 .padding(.leading, 10)
                 

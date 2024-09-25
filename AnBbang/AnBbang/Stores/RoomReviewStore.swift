@@ -21,5 +21,9 @@ class RoomReviewStore: ObservableObject {
         let newReview = RoomReview(userName: userName, userImage: userImage, reviewText: reviewText, reviewDate: reviewDate, rating: rating)
         reviews.append(newReview)
     }
+    
+    func calculateAverageRating() -> Double {
+        Double(reviews.reduce(0) { $0 + $1.rating }) / Double(reviews.count)
+    }
 }
 
