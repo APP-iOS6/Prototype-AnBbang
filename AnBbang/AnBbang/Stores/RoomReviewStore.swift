@@ -23,11 +23,3 @@ class RoomReviewStore: ObservableObject {
     }
 }
 
-struct RoomReview: Identifiable {
-    var id = UUID()
-    var userName: String
-    var userImage: String
-    var reviewText: String
-    var reviewDate: String
-    var rating: Int
-}
