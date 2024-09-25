@@ -164,6 +164,14 @@ struct EstateMapView: View {
                         currMap = .MapDummy.womensFitnessCenter
                         showFilterSheet.toggle()
                     }
+                    Button("안심택배") {
+                        currMap = .MapDummy._44DeliveryService
+                        showFilterSheet.toggle()
+                    }
+                    Button("빨래방") {
+                        currMap = .MapDummy._43Wash
+                        showFilterSheet.toggle()
+                    }
                     
                     Button("여성병원") {
                         currMap = .MapDummy._41WomensHospital
