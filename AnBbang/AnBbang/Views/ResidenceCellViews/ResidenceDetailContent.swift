@@ -22,6 +22,17 @@ struct ResidenceDetailContent: View {
                 .clipShape(RoundedRectangle(cornerRadius: 5))
             Button {
                 residenceStore.toggleFavorite(id: residence.id)
+                
+                if residence.isFavorite {
+                    let triggerDate = Calendar.current.date(byAdding: .second, value: 7, to: Date())!
+                    let date = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
+                    
+                    LocalNotificationManager.shared.addNewNotification(
+                        notification: Notification(id: residence.id.uuidString, title: "매물 알림", body: "즐겨찾기 하신 매물이 업데이트 되었어요!", notificationDate: date)
+                    )
+                } else {
+                    LocalNotificationManager.shared.deleteNotification(id: residence.id.uuidString)
+                }
             } label: {
                 Image(systemName: residence.isFavorite ? "heart.fill" : "heart")
                     .foregroundStyle(residence.isFavorite ? .red : .white)

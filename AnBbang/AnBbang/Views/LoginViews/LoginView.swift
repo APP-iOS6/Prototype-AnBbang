@@ -44,7 +44,7 @@ struct LoginView: View {
                 // 소셜 로그인 버튼 섹션
                 VStack(spacing: 15) {
                     // 카카오 로그인 버튼
-                    NavigationLink(destination: NotificationPromptView()) {
+                    NavigationLink(destination: NotificationPromptView(localNotificationManager: LocalNotificationManager.shared)) {
                         HStack {
                             Image("kakaoLogo")
                                 .resizable()
@@ -62,7 +62,7 @@ struct LoginView: View {
                     .padding(.horizontal, 30)
                     
                     // Google 로그인 버튼
-                    NavigationLink(destination: NotificationPromptView()) {
+                    NavigationLink(destination: NotificationPromptView(localNotificationManager: LocalNotificationManager.shared)) {
                         HStack {
                             Image("googleLogo")
                                 .resizable()
@@ -83,7 +83,7 @@ struct LoginView: View {
                     .padding(.horizontal, 30)
                     
                     // Apple 로그인 버튼
-                    NavigationLink(destination: NotificationPromptView()) {
+                    NavigationLink(destination: NotificationPromptView(localNotificationManager: LocalNotificationManager.shared)) {
                         HStack {
                             Image(systemName: "applelogo")
                                 .resizable()
@@ -101,7 +101,7 @@ struct LoginView: View {
                     .padding(.horizontal, 30)
                     
                     // Facebook 로그인 버튼
-                    NavigationLink(destination: NotificationPromptView()) {
+                    NavigationLink(destination: NotificationPromptView(localNotificationManager: LocalNotificationManager.shared)) {
                         HStack {
                             Image("facebookLogo")
                                 .resizable()
@@ -124,7 +124,7 @@ struct LoginView: View {
                 .padding(.bottom, 20)
                 
                 // 이메일로 로그인 링크
-                NavigationLink(destination: NotificationPromptView()) {
+                NavigationLink(destination: NotificationPromptView(localNotificationManager: LocalNotificationManager.shared)) {
                     Text("이메일로 로그인하기")
                         .font(.system(size: 14))
                         .foregroundColor(.gray)
@@ -134,7 +134,7 @@ struct LoginView: View {
                 Spacer()
                 
                 // 공인중개사로 로그인 버튼
-                NavigationLink(destination: NotificationPromptView()) {
+                NavigationLink(destination: NotificationPromptView(localNotificationManager: LocalNotificationManager.shared)) {
                     HStack {
                         Text("공인중개사로 로그인")
                             .font(.system(size: 16, weight: .bold))
