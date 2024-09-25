@@ -21,13 +21,7 @@ final class LocalNotificationManager {
     var isSetNotificationAuth: Bool = false
     private var notifications: [Notification] = []
     
-    private init() {
-        
-    }
-    
-    func resetNotificationAuthSetting() {
-        isSetNotificationAuth = false
-    }
+    private init() { }
     
     func requestPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] granted, error in
