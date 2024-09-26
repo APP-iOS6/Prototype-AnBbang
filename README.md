@@ -135,9 +135,19 @@
 
 
 ### ☑️ UX Feedback (feat. Tuna)
-- "(피드백 사항)" <br>
-  ➡️ (해결)
+- "지도뷰 좌측 상단의 '주거 형태' 버튼의 애니메이션 수정" <br>
+  ➡️ 수정 완료
+  
 <br>
+
+- "지도뷰 하단 '매물 리스트' 필터 중 '여성 전용' 레이블 사용여부 재검토, '회원 리뷰가 달린 매물' 카테고리 사용 검토" <br>
+  ➡️ '여성 전용' 레이블은 그대로 사용하되 '회원 리뷰 매물' 카테고리 추가
+  
+<br>
+
+- "'매물 세부 정보'뷰 내 정보의 위계를 고려한 보완, '사용자 리뷰 창' 내 스크롤뷰 높이가 너무 낮음." <br>
+  ➡️ '매물 등록번호', '매물 등록일', '사용자 리뷰 및 별점' 등의 위치 재조정 / '사용자 리뷰' 내 스크롤뷰 높이 수정
+
 <br>
 
 ## ✅ 작동환경 (Operating Environment)
@@ -150,7 +160,7 @@
 
 | 이름     | 역할  | GitHub |
 |----------|-------|--------|
-| 김승철 | PM, 로그인  | [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=flat-square&logo=github&logoColor=white)](https://github.com/Seungcheol-Kim) |
+| 김승철 | PM, 로그인, 디자인  | [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=flat-square&logo=github&logoColor=white)](https://github.com/Seungcheol-Kim) |
 | 박범규 | 관심목록, 매물정보  | [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=flat-square&logo=github&logoColor=white)](https://github.com/parkbeomgyu) |
 | 신현우 | 홈, 총괄   | [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=flat-square&logo=github&logoColor=white)](https://github.com/show2633) |
 | 황인영 | 더보기, 사용자 리뷰 | [![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?style=flat-square&logo=github&logoColor=white)](https://github.com/InyoungTechit) |
