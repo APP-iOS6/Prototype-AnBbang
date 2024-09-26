@@ -86,9 +86,9 @@ struct SearchView: View {
                                             .resizable()
                                             .frame(width: 20, height: 20)
                                             .padding(5)
-                                            .foregroundStyle(Color(UIColor.label))
+                                            .foregroundStyle(Color(.white))
                                         Text(option.category)
-                                            .foregroundStyle(Color(UIColor.label))
+                                            .foregroundStyle(.white)
                                         Spacer()
                                     }
                                     .padding(.horizontal)
@@ -102,13 +102,14 @@ struct SearchView: View {
                         .background(Color(UIColor.clear))
                         .cornerRadius(5)
                         .shadow(radius: 5)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
+                        .opacity(showDropdown ? 1 : 0)  // opacity를 사용하여 부드럽게 나타남
+                        .animation(.easeIn(duration: 0.1), value: showDropdown)  // 부드러운 전환
                         .offset(y: 120)  // 버튼 아래로 드롭다운 위치 조정
                         .zIndex(1)  // 드롭다운의 zIndex를 1로 설정하여 맨 앞에 표시
                     }
                 }
-                .padding(.leading, 8)
-                .frame(maxWidth: .infinity, alignment: .leading)  // 오버레이의 위치를 왼쪽으로 맞춤
+                    .padding(.leading, 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)  // 오버레이의 위치를 왼쪽으로 맞춤
             )
         }
         .padding(.horizontal)
