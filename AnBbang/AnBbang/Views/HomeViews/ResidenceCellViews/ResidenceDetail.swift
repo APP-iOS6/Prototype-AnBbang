@@ -14,8 +14,8 @@ struct ResidenceDetail: View {
     @State private var isPresented: Bool = false
     
     var body: some View {
-        Button {
-            isPresented = true
+        NavigationLink {
+            ResidenceInfoView(residence: $residence, isSheet: false)
         } label: {
             if isVertical {
                 VStack {
@@ -27,11 +27,6 @@ struct ResidenceDetail: View {
                         .padding(.leading, 20)
                     Spacer()
                 }
-            }
-        }
-        .fullScreenCover(isPresented: $isPresented) {
-            NavigationStack {
-                ResidenceInfoView(residence: $residence)
             }
         }
     }

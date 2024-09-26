@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResidenceInfoView: View {
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var roomReviewStore: RoomReviewStore
     @EnvironmentObject var residenceStore: ResidenceStore
     @Binding var residence: ResidenceInfo
@@ -15,22 +16,23 @@ struct ResidenceInfoView: View {
     @State private var isPresented: Bool = false
     var checkDict: [String: String] = ["1. 계약 전\n 확인하기": "before", "2. 계약 당일\n 준비": "dDay", "3. 계약 후\n 확인하기": "after", "4. 이삿날\n 해야할 일": "move"]
     @State private var imageName: String = ""
+    var isSheet: Bool
     
     var body: some View {
         VStack {
             ZStack(alignment: .topTrailing) {
                 RoomImagesView(roomImages: residence.images)
                 
-                Button {
-                    residenceStore.toggleFavorite(id: residence.id)
-                    isFavorite = residenceStore.getFavorites(id: residence.id)
-                } label: {
-                    Image(systemName: isFavorite == true ? "heart.fill" : "heart")
-                        .foregroundStyle(isFavorite ? .red : .white)
+                if isSheet {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                            .foregroundStyle(.white)
+                            .padding(.trailing, 20)
+                            .padding(.top, screenBounds!.height / 20)
+                    }
                 }
-                .padding(.trailing, 20)
-                .padding(.top, 90)
-                .zIndex(1)
             }
             .ignoresSafeArea()
             .frame(maxHeight: 150)
@@ -80,17 +82,25 @@ struct ResidenceInfoView: View {
                 }
                 .padding(10)
                 
-                //Divider()
+                Divider()
                 
                 VStack(alignment: .leading) {
                     VStack {
-                        
+                        Text(residence.maintenanceCost.cost)
                     }
                     
                     Divider()
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("- \(residence.maintenanceCost.cost)")
+                        Text("여성 안심 시설")
+                            .fontWeight(.bold)
+                        Text("- CCTV 설치 대수(반경 500m) 이내 : 37대")
+                        Text("- 경찰서(지구대) 거리 : 500m")
+                    }
+                    
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: 10) {
                         Text("- 거실 넓은 최신축")
                             .font(.headline)
                         Text("- 면적 : 10.15m²")
@@ -231,14 +241,34 @@ struct ResidenceInfoView: View {
                 Spacer()
                 
                 Button {
+                    residenceStore.toggleFavorite(id: residence.id)
+                    isFavorite = residenceStore.getFavorites(id: residence.id)
+                } label: {
+                    HStack(spacing: 0) {
+                        Text("즐겨찾기")
+                            .foregroundStyle(Color(UIColor.systemBackground))
+                        Image(systemName: isFavorite == true ? "heart.fill" : "heart")
+                            .foregroundStyle(isFavorite ? .red : .white)
+                    }
+                }
+                .padding(.top, 10)
+                .padding(.bottom, 10)
+                .padding(.leading, 20)
+                .padding(.trailing, 12)
+                .background(.accent)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+                .foregroundStyle(.white)
+                .fontWeight(.bold)
+                
+                Button {
                     
                 } label: {
                     Text("문의하기")
                         .padding(.top, 10)
                         .padding(.bottom, 10)
-                        .padding(.leading, 60)
-                        .padding(.trailing, 60)
-                        .background(Color.accent)
+                        .padding(.leading, 26)
+                        .padding(.trailing, 26)
+                        .background(.accent)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                         .foregroundStyle(.white)
                         .fontWeight(.bold)

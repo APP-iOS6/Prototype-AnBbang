@@ -20,7 +20,7 @@ struct ResidenceCell: View {
                 .foregroundStyle(.accent)
             Spacer()
             Text("\(residence)")
-                .frame(minWidth: 175, minHeight: 50)
+                .frame(minWidth: screenBounds!.width / 2.2, minHeight: screenBounds!.height / 12.5)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .font(.title3)
                 .fontWeight(.bold)
@@ -28,7 +28,7 @@ struct ResidenceCell: View {
         }
         .overlay {
             RoundedRectangle(cornerRadius: 5)
-                .stroke(lineWidth: 1)
+                .stroke(lineWidth: 1.5)
                 .foregroundStyle(.gray)
                 .frame(minHeight: 130)
         }

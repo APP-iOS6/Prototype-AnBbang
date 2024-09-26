@@ -7,16 +7,19 @@
 
 import SwiftUI
 
+let screenBounds = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.screen.bounds
+
 struct HomeView: View {
     @EnvironmentObject var residenceStore: ResidenceStore
+    
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack {
+                VStack(alignment: .leading) {
                     Image("anbbangLogo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 360, height: 70, alignment: .leading)
+                        .frame(height: 70, alignment: .leading)
                     
                     Spacer()
                         .frame(height: 20)
@@ -29,6 +32,8 @@ struct HomeView: View {
                                 ResidenceCell(residence: Residence.gositel.rawValue, image: "bed.double.fill")
                             }
                             
+                            Spacer()
+                            
                             NavigationLink {
                                 EstateMapView(residenceStore: residenceStore, category: Residence.oneRoom.rawValue, categoryImage: "house.fill")
                             } label: {
@@ -37,12 +42,16 @@ struct HomeView: View {
                         }
                         .padding(.bottom, 7)
                         
+                        Spacer()
+                        
                         GridRow {
                             NavigationLink {
                                 EstateMapView(residenceStore: residenceStore, category: Residence.villaAndTwoRoom.rawValue, categoryImage: "building.2.fill")
                             } label: {
                                 ResidenceCell(residence: Residence.villaAndTwoRoom.rawValue, image: "building.2.fill")
                             }
+                            
+                            Spacer()
                             
                             NavigationLink {
                                 EstateMapView(residenceStore: residenceStore, category: Residence.officetel.rawValue, categoryImage: "building.columns.fill")
@@ -53,24 +62,31 @@ struct HomeView: View {
                     }
                     
                     Spacer()
-                        .frame(height: 10)
+                        .frame(height: 0)
                     
                     ADView()
-                    
-                    .frame(width: 365, height: 150)
+                        .frame(height: screenBounds!.height / 4.5)
                     
                     Spacer()
                         .frame(height: 10)
                     
                     HStack {
                         Text("이 근처 추천 매물")
-                            .frame(width: 310, alignment: .leading)
+                            .frame(width: 300, alignment: .leading)
                             .fontWeight(.bold)
                         
-                        NavigationLink {
-                            MoreRoomsView()
-                        } label: {
-                            Text("더보기 ＞")
+                        Spacer()
+                        
+                        HStack(spacing: 0) {
+                            NavigationLink {
+                                MoreRoomsView()
+                            } label: {
+                                Text("더보기 ")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                            }
+                            
+                            Image(systemName: "chevron.forward")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
@@ -84,9 +100,11 @@ struct HomeView: View {
                         }
                     }
                 }
-                .padding(.leading, 20)
-                .padding(.trailing, 20)
+                .padding(.leading, 10)
+                .padding(.trailing, 10)
             }
+        }
+        .onAppear {
         }
     }
 }

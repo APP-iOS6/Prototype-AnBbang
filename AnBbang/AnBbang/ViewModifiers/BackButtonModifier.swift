@@ -19,9 +19,8 @@ struct BackButtonModifier: ViewModifier {
                     Button { // 새로운 back button 설정
                         dismiss()
                     } label: {
-                        Text("＜")
+                        Image(systemName: "chevron.backward")
                             .fontWeight(.bold)
-                            .font(.title)
                             .foregroundStyle(Color(UIColor.label))
                     }
                 }

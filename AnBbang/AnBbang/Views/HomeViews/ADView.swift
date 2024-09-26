@@ -18,7 +18,6 @@ struct ADView: View {
                 Image(imageNames[index])
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 365, height: 200)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .tag(index)
             }

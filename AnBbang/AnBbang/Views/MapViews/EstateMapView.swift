@@ -14,6 +14,7 @@ struct EstateMapView: View {
     @State private var currScale: CGFloat = 0.0
     @State private var scale: CGFloat = 1.0
     @State private var shouldShowHomeList: Bool = false
+    @State private var shouldShowHomeDetail: Bool = false
     @State private var showFilterSheet: Bool = false
     @State private var searchText: String = ""
     @State private var mapFilterSheetTitle: String = ""
@@ -24,6 +25,51 @@ struct EstateMapView: View {
     @State private var showFullScreen: Bool = false
     var category: String = ""
     var categoryImage: String = ""
+    @State private var selectedResidence: ResidenceInfo = ResidenceInfo(
+        images: ["TempRoom3", "TempRoom", "TempRoom2"],
+        residenceType: "원룸",
+        isFavorite: false,
+        isFemaleOnly: true,
+        subInfo: "3층/4층, 30.15m², 관리비 17만원",
+        registNumber: "98765432",
+        registDate: "2024-09-24",
+        realEstateAgent: RealEstateAgent(
+            name: "LAB 5 공인중개사사무소",
+            rating: 4.9),
+        quickInfo: QuickInfo(
+            address: "경상북도 경산시 압량읍",
+            monthlyRent: "월세 45/1000",
+            maintenanceCost: "관리비 7만원"
+        ),
+        maintenanceCost: MaintenanceCost(
+            cost: "월 관리비 170,000원",
+            detail: """
+                    최근 1년 관리비 평균금액 기준으로 산정
+                    - 부과방식 : 정액관리비
+                    - 일반(공용)관리비 : 170,000원
+                    - 인터넷 사용료 : 의뢰인 미제공
+                    - 수도료: 의뢰인 미제공
+                    - TV사용료 : 의뢰인 미제공
+                    - 기타관리비 : 의뢰인 미제공
+                    """),
+        options: [
+            Option(name: "세탁기", image: "refrigerator"),
+            Option(name: "싱크대", image: "sink"),
+            Option(name: "에어컨", image: "air.conditioner.horizontal"),
+            Option(name: "신발장", image: "shoe.2"),
+            Option(name: "옷장", image: "hanger"),
+            Option(name: "침대", image: "bed.double"),
+            Option(name: "가스렌지", image: "stove"),
+            Option(name: "책상", image: "studentdesk"),
+            
+        ],
+        roomDescription: """
+                     방이 깔끔해요!
+                     바퀴벌레도 없어요!
+                     쥐도 없는것 같아요!
+                     햇볕도 끝내줍니다
+                     """
+    )
     
     private var magnification: some Gesture {
         MagnifyGesture()
@@ -73,7 +119,7 @@ struct EstateMapView: View {
             
             VStack(alignment: .trailing, spacing: 10) {
                 SearchView(searchText: $searchText, category: category, categoryImage: categoryImage)
-                    .padding(.top, 100)
+                    .padding(.top, screenBounds!.height / 9)
                     .zIndex(1)
                 
                 HStack(spacing: 10) {
@@ -146,7 +192,7 @@ struct EstateMapView: View {
                     }
                 }
                 .foregroundStyle(.black)
-                .padding(.trailing, 10)
+                .padding(.trailing, 15)
             }
         }
         .sheet(isPresented: $showFilterSheet) {
@@ -185,6 +231,11 @@ struct EstateMapView: View {
             }
             .presentationDetents([.medium])
         }
+        .fullScreenCover(isPresented: $shouldShowHomeDetail) {
+            VStack {
+                ResidenceInfoView(residence: $selectedResidence, isSheet: true)
+            }
+        }
         .sheet(isPresented: $shouldShowHomeList) {
             HStack {
                 Spacer()
@@ -192,31 +243,45 @@ struct EstateMapView: View {
                 Picker("filter", selection: $selectedFilter) {
                     Text("가격 순")
                         .tag(0)
+                        .foregroundStyle(Color(UIColor.label))
                     Text("여성 전용")
                         .tag(1)
+                        .foregroundStyle(Color(UIColor.label))
                 }
                 .pickerStyle(.menu)
+                .tint(Color(UIColor.label))
                 
-                Button {
-                    showFullScreen.toggle()
-                } label: {
-                    Text("더보기 ＞")
-                        .foregroundStyle(.accent)
+                HStack(spacing: 0) {
+                    Button {
+                        showFullScreen.toggle()
+                    } label: {
+                        Text("더보기 ")
+                            .foregroundStyle(Color(UIColor.label))
+                    }
+                    
+                    Image(systemName: "chevron.forward")
+                        .foregroundStyle(Color(UIColor.label))
+                        .padding(.trailing, 10)
                 }
-                .padding(.trailing, 10)
             }
             .padding(.top, 10)
             
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal) { 
                 HStack {
                     ForEach(residenceStore.residences.indices) { index in
-                        ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
+                        Button {
+                            selectedResidence = residenceStore.residences[index]
+                            shouldShowHomeDetail.toggle()
+                        } label: {
+                            ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
+                        }
+                        
                     }
                 }
             }
             .padding(.leading, 10)
-            .presentationDetents([.fraction(0.4)])
-            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
+            .presentationDetents([.fraction(0.5)])
+//            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.4)))
             .fullScreenCover(isPresented: $showFullScreen) {
                 NavigationStack {
                     MoreRoomsView()
@@ -231,9 +296,8 @@ struct EstateMapView: View {
                 Button { // 새로운 back button 설정
                     dismiss()
                 } label: {
-                    Text("＜")
+                    Image(systemName: "chevron.backward")
                         .fontWeight(.bold)
-                        .font(.title)
                         .foregroundStyle(.black)
                 }
             }

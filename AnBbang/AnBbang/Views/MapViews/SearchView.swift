@@ -37,7 +37,6 @@ struct SearchView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 5) {
-                Spacer(minLength: 3)
                 
                 // 이미지 선택 버튼
                 Button {
@@ -57,7 +56,7 @@ struct SearchView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
                 
-                RoundedRectangleWithShadowBackground(frame: CGSize(width: 300, height: 40)) {
+                RoundedRectangleWithShadowBackground(frame: CGSize(width: screenBounds!.width / 1.34, height: 40)) {
                     TextField(text: $searchText, prompt: Text("지역, 지하철, 대학, 단지")) {
                         Text(searchText)
                     }
