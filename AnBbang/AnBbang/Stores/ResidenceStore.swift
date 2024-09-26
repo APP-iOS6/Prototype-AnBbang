@@ -288,12 +288,21 @@ class ResidenceStore: ObservableObject {
     }
     
     func toggleFavorite(id: UUID) {
-        for index in 0..<residences.count {
+        let triggerDate = Calendar.current.date(byAdding: .second, value: 10, to: Date())!
+        let date = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
+        
+        for index in 0 ..< residences.count {
             if residences[index].id == id {
                 if residences[index].isFavorite {
                     residences[index].isFavorite = false
+                    
+                    LocalNotificationManager.shared.deleteNotification(id: residences[index].id.uuidString)
                 } else {
                     residences[index].isFavorite = true
+                    
+                    LocalNotificationManager.shared.addNewNotification(
+                        notification: Notification(id: residences[index].id.uuidString, title: "새 매물 알림🏡", body: "즐겨찾기 하신 매물이 업데이트 되었어요!", notificationDate: date)
+                    )
                 }
             }
         }

@@ -46,19 +46,20 @@ final class LocalNotificationManager {
     }
     
     func addNewNotification(notification: Notification) {
+        if notifications.contains(where: { $0.id == notification.id }) { return }
+        
         notifications.append(notification)
     }
     
     func deleteNotification(id: String) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
-        notifications.removeAll(where: { $0.id ==  id })        
+        notifications.removeAll(where: { $0.id ==  id })
+        print(notifications)
     }
     
     private func scheduleNotifications() {
         notifications.forEach { notification in
             let content = UNMutableNotificationContent()
-            content.title = notification.title
-            content.subtitle = "안방 매물 알림"
+            content.subtitle = notification.title
             content.body = notification.body
             content.sound = .default
             

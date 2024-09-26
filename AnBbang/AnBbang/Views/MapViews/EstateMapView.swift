@@ -266,16 +266,18 @@ struct EstateMapView: View {
             }
             .padding(.top, 10)
             
-            ScrollView(.horizontal) { 
-                HStack {
-                    ForEach(residenceStore.residences.indices) { index in
-                        Button {
-                            selectedResidence = residenceStore.residences[index]
-                            shouldShowHomeDetail.toggle()
-                        } label: {
-                            ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
+            NavigationStack {
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(residenceStore.residences.indices) { index in
+                            Button {
+                                selectedResidence = residenceStore.residences[index]
+                                shouldShowHomeDetail.toggle()
+                            } label: {
+                                ResidenceDetail(residence: $residenceStore.residences[index], isVertical: true)
+                            }
+                            
                         }
-                        
                     }
                 }
             }
