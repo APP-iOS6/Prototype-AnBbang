@@ -37,58 +37,38 @@ struct ResidenceInfoView: View {
             
             ScrollView {
                 HStack {
-                    Text("등록번호 \(residence.registNumber)")
-                        .padding(4)
-                        .background(Color(UIColor.label))
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                        .foregroundStyle(Color(.systemBackground))
-                        .font(.caption)
-                        .fontWeight(.bold)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(residence.quickInfo.address)
+                            .font(.caption)
+                        Text(residence.quickInfo.monthlyRent)
+                            .fontWeight(.bold)
+                            .font(.title2)
+                    }
+                    
                     
                     Spacer()
                     
-                    Text(residence.registDate)
-                        .font(.caption2)
-                        .foregroundStyle(.gray)
-                }
-                .padding(10)
-                
-                Divider()
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(residence.quickInfo.address)
-                                .font(.caption)
-                            Text(residence.quickInfo.monthlyRent)
-                                .fontWeight(.bold)
-                                .font(.title2)
-                            Text(residence.quickInfo.maintenanceCost)
-                                .font(.caption)
-                        }
-                        .padding(.top, 15)
-                        .padding(.bottom, 15)
-                        
-                        Spacer()
-                        
-                        VStack(alignment: .trailing) {
-                            NavigationLink {
-                                RoomReviewView(residence: $residence)
-                            } label: {
-                                VStack(spacing: 5) {
+                    VStack(alignment: .trailing) {
+                        NavigationLink {
+                            RoomReviewView(residence: $residence)
+                        } label: {
+                            VStack(spacing: 5) {
+                                HStack {
+                                    Spacer()
                                     Image(systemName: "star.fill")
                                         .foregroundStyle(.yellow)
                                         .fontWeight(.bold)
-                                        .frame(width: 110, alignment: .trailing)
-                                        .padding(.trailing, 15)
                                     
                                     let stringRating = String(format: "%.1f", roomReviewStore.calculateAverageRating())
                                     
                                     Text(stringRating)
                                         .foregroundStyle(.accent)
                                         .fontWeight(.bold)
-                                        .frame(width: 110, alignment: .trailing)
                                         .padding(.trailing, 15)
+                                }
+                                
+                                HStack {
+                                    Spacer()
                                     
                                     Text("사용자 리뷰 보기 ＞")
                                         .foregroundStyle(.accent)
@@ -97,23 +77,33 @@ struct ResidenceInfoView: View {
                             }
                         }
                     }
+                }
+                .padding(10)
+                
+                //Divider()
+                
+                VStack(alignment: .leading) {
+                    VStack {
+                        
+                    }
                     
                     Divider()
                     
                     VStack(alignment: .leading, spacing: 10) {
+                        Text("- \(residence.maintenanceCost.cost)")
                         Text("- 거실 넓은 최신축")
                             .font(.headline)
-                        Text("- 10.15m²")
+                        Text("- 면적 : 10.15m²")
                             .fontWeight(.bold)
-                        Text("- 분리형 원룸 (욕실 1개)")
-                        Text("- 3층/4층")
-                        Text("- 즉시 입주 가능")
-                        Text("- 총 주차 대수 5대")
-                        Text("- 남동향")
-                        Text("- 엘리베이터 없음")
-                        Text("- 단독주택")
-                        Text("- 20190618 준공")
-                        Text("- 경산시 압량읍 부적리")
+                        Text("- 주거형태 : 분리형 원룸 (욕실 1개)")
+                        Text("- 층수 : 3층/4층")
+                        Text("- 입주 가능일 : 즉시 입주 가능")
+                        Text("- 주차 : 총 주차 대수 5대")
+                        Text("- 주택 방향 : 남동향")
+                        Text("- 엘리베이터 : 엘리베이터 없음")
+                        Text("- 건축물 용도 : 단독주택")
+                        Text("- 준공일 : 20190618 준공")
+                        Text("- 주소 : 경산시 압량읍 부적리")
                     }
                     .padding(.top, 15)
                     .padding(.bottom, 15)
@@ -158,6 +148,21 @@ struct ResidenceInfoView: View {
                         .lineSpacing(5)
                         .padding(.top, 15)
                         .padding(.bottom, 15)
+                    
+                    Divider()
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("등록번호 \(residence.registNumber)")
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                            .foregroundStyle(.gray)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                        Text("매물 등록일: \(residence.registDate)")
+                            .font(.caption2)
+                            .foregroundStyle(.gray)
+                    }
+                    .padding(.top, 15)
+                    .padding(.bottom, 15)
                     
                     Divider()
                     

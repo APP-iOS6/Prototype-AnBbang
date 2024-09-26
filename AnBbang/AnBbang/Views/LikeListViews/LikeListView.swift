@@ -21,4 +21,5 @@ struct LikelistView: View {
 #Preview {
     MainView()
         .environment(ResidenceStore())
+        .environment(RoomReviewStore())
 }

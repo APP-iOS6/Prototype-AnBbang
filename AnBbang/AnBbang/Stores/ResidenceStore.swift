@@ -104,7 +104,7 @@ class ResidenceStore: ObservableObject {
         ResidenceInfo(
                 images: ["TempRoom2", "TempRoom", "TempRoom3"],
                 residenceType: "원룸",
-                isFavorite: false,
+                isFavorite: true,
                 isFemaleOnly: true,
                 subInfo: "2층/4층, 25.00m², 관리비 15만원",
                 registNumber: "12345678",
